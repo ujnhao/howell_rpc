@@ -25,8 +25,8 @@ func NewCpsRebateDiscounts() *CpsRebateDiscounts {
 
 func (m *CpsRebateDiscounts) FromRPC(r *models.CpsRebateDiscounts) *CpsRebateDiscounts {
 	return &CpsRebateDiscounts{
-		ID:       r.GetID(),
-		AppID:    r.GetAppID(),
+		ID:       r.GetId(),
+		AppID:    r.GetAppId(),
 		Name:     r.GetName(),
 		CpsType:  int32(r.GetCpsType()),
 		JumpLink: r.GetJumpLink(),
@@ -38,8 +38,8 @@ func (m *CpsRebateDiscounts) FromRPC(r *models.CpsRebateDiscounts) *CpsRebateDis
 func (m *CpsRebateDiscounts) ToRPC() *models.CpsRebateDiscounts {
 	status := int32(m.Status)
 	return &models.CpsRebateDiscounts{
-		ID:    &m.ID,
-		AppID: &m.AppID,
+		Id:    &m.ID,
+		AppId: &m.AppID,
 		Name:  &m.Name,
 		CpsType: models.CpsTypePtr(
 			models.CpsType(m.CpsType)),

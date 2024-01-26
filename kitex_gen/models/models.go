@@ -48,13 +48,13 @@ func (p *CpsType) Value() (driver.Value, error) {
 }
 
 type CpsRebateDiscounts struct {
-	ID       *string  `thrift:"ID,1,optional" frugal:"1,optional,string" json:"ID,omitempty"`
-	AppID    *string  `thrift:"AppID,2,optional" frugal:"2,optional,string" json:"AppID,omitempty"`
-	Name     *string  `thrift:"Name,3,optional" frugal:"3,optional,string" json:"Name,omitempty"`
-	CpsType  *CpsType `thrift:"CpsType,4,optional" frugal:"4,optional,CpsType" json:"CpsType,omitempty"`
-	JumpLink *string  `thrift:"JumpLink,5,optional" frugal:"5,optional,string" json:"JumpLink,omitempty"`
-	Extra    *string  `thrift:"Extra,6,optional" frugal:"6,optional,string" json:"Extra,omitempty"`
-	Status   *int32   `thrift:"Status,7,optional" frugal:"7,optional,i32" json:"Status,omitempty"`
+	Id       *string  `thrift:"id,1,optional" frugal:"1,optional,string" json:"id,omitempty"`
+	AppId    *string  `thrift:"app_id,2,optional" frugal:"2,optional,string" json:"app_id,omitempty"`
+	Name     *string  `thrift:"name,3,optional" frugal:"3,optional,string" json:"name,omitempty"`
+	CpsType  *CpsType `thrift:"cps_type,4,optional" frugal:"4,optional,CpsType" json:"cps_type,omitempty"`
+	JumpLink *string  `thrift:"jump_link,5,optional" frugal:"5,optional,string" json:"jump_link,omitempty"`
+	Extra    *string  `thrift:"extra,6,optional" frugal:"6,optional,string" json:"extra,omitempty"`
+	Status   *int32   `thrift:"status,7,optional" frugal:"7,optional,i32" json:"status,omitempty"`
 }
 
 func NewCpsRebateDiscounts() *CpsRebateDiscounts {
@@ -65,22 +65,22 @@ func (p *CpsRebateDiscounts) InitDefault() {
 	*p = CpsRebateDiscounts{}
 }
 
-var CpsRebateDiscounts_ID_DEFAULT string
+var CpsRebateDiscounts_Id_DEFAULT string
 
-func (p *CpsRebateDiscounts) GetID() (v string) {
-	if !p.IsSetID() {
-		return CpsRebateDiscounts_ID_DEFAULT
+func (p *CpsRebateDiscounts) GetId() (v string) {
+	if !p.IsSetId() {
+		return CpsRebateDiscounts_Id_DEFAULT
 	}
-	return *p.ID
+	return *p.Id
 }
 
-var CpsRebateDiscounts_AppID_DEFAULT string
+var CpsRebateDiscounts_AppId_DEFAULT string
 
-func (p *CpsRebateDiscounts) GetAppID() (v string) {
-	if !p.IsSetAppID() {
-		return CpsRebateDiscounts_AppID_DEFAULT
+func (p *CpsRebateDiscounts) GetAppId() (v string) {
+	if !p.IsSetAppId() {
+		return CpsRebateDiscounts_AppId_DEFAULT
 	}
-	return *p.AppID
+	return *p.AppId
 }
 
 var CpsRebateDiscounts_Name_DEFAULT string
@@ -127,11 +127,11 @@ func (p *CpsRebateDiscounts) GetStatus() (v int32) {
 	}
 	return *p.Status
 }
-func (p *CpsRebateDiscounts) SetID(val *string) {
-	p.ID = val
+func (p *CpsRebateDiscounts) SetId(val *string) {
+	p.Id = val
 }
-func (p *CpsRebateDiscounts) SetAppID(val *string) {
-	p.AppID = val
+func (p *CpsRebateDiscounts) SetAppId(val *string) {
+	p.AppId = val
 }
 func (p *CpsRebateDiscounts) SetName(val *string) {
 	p.Name = val
@@ -150,21 +150,21 @@ func (p *CpsRebateDiscounts) SetStatus(val *int32) {
 }
 
 var fieldIDToName_CpsRebateDiscounts = map[int16]string{
-	1: "ID",
-	2: "AppID",
-	3: "Name",
-	4: "CpsType",
-	5: "JumpLink",
-	6: "Extra",
-	7: "Status",
+	1: "id",
+	2: "app_id",
+	3: "name",
+	4: "cps_type",
+	5: "jump_link",
+	6: "extra",
+	7: "status",
 }
 
-func (p *CpsRebateDiscounts) IsSetID() bool {
-	return p.ID != nil
+func (p *CpsRebateDiscounts) IsSetId() bool {
+	return p.Id != nil
 }
 
-func (p *CpsRebateDiscounts) IsSetAppID() bool {
-	return p.AppID != nil
+func (p *CpsRebateDiscounts) IsSetAppId() bool {
+	return p.AppId != nil
 }
 
 func (p *CpsRebateDiscounts) IsSetName() bool {
@@ -296,7 +296,7 @@ func (p *CpsRebateDiscounts) ReadField1(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.ID = &v
+		p.Id = &v
 	}
 	return nil
 }
@@ -305,7 +305,7 @@ func (p *CpsRebateDiscounts) ReadField2(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.AppID = &v
+		p.AppId = &v
 	}
 	return nil
 }
@@ -409,11 +409,11 @@ WriteStructEndError:
 }
 
 func (p *CpsRebateDiscounts) writeField1(oprot thrift.TProtocol) (err error) {
-	if p.IsSetID() {
-		if err = oprot.WriteFieldBegin("ID", thrift.STRING, 1); err != nil {
+	if p.IsSetId() {
+		if err = oprot.WriteFieldBegin("id", thrift.STRING, 1); err != nil {
 			goto WriteFieldBeginError
 		}
-		if err := oprot.WriteString(*p.ID); err != nil {
+		if err := oprot.WriteString(*p.Id); err != nil {
 			return err
 		}
 		if err = oprot.WriteFieldEnd(); err != nil {
@@ -428,11 +428,11 @@ WriteFieldEndError:
 }
 
 func (p *CpsRebateDiscounts) writeField2(oprot thrift.TProtocol) (err error) {
-	if p.IsSetAppID() {
-		if err = oprot.WriteFieldBegin("AppID", thrift.STRING, 2); err != nil {
+	if p.IsSetAppId() {
+		if err = oprot.WriteFieldBegin("app_id", thrift.STRING, 2); err != nil {
 			goto WriteFieldBeginError
 		}
-		if err := oprot.WriteString(*p.AppID); err != nil {
+		if err := oprot.WriteString(*p.AppId); err != nil {
 			return err
 		}
 		if err = oprot.WriteFieldEnd(); err != nil {
@@ -448,7 +448,7 @@ WriteFieldEndError:
 
 func (p *CpsRebateDiscounts) writeField3(oprot thrift.TProtocol) (err error) {
 	if p.IsSetName() {
-		if err = oprot.WriteFieldBegin("Name", thrift.STRING, 3); err != nil {
+		if err = oprot.WriteFieldBegin("name", thrift.STRING, 3); err != nil {
 			goto WriteFieldBeginError
 		}
 		if err := oprot.WriteString(*p.Name); err != nil {
@@ -467,7 +467,7 @@ WriteFieldEndError:
 
 func (p *CpsRebateDiscounts) writeField4(oprot thrift.TProtocol) (err error) {
 	if p.IsSetCpsType() {
-		if err = oprot.WriteFieldBegin("CpsType", thrift.I32, 4); err != nil {
+		if err = oprot.WriteFieldBegin("cps_type", thrift.I32, 4); err != nil {
 			goto WriteFieldBeginError
 		}
 		if err := oprot.WriteI32(int32(*p.CpsType)); err != nil {
@@ -486,7 +486,7 @@ WriteFieldEndError:
 
 func (p *CpsRebateDiscounts) writeField5(oprot thrift.TProtocol) (err error) {
 	if p.IsSetJumpLink() {
-		if err = oprot.WriteFieldBegin("JumpLink", thrift.STRING, 5); err != nil {
+		if err = oprot.WriteFieldBegin("jump_link", thrift.STRING, 5); err != nil {
 			goto WriteFieldBeginError
 		}
 		if err := oprot.WriteString(*p.JumpLink); err != nil {
@@ -505,7 +505,7 @@ WriteFieldEndError:
 
 func (p *CpsRebateDiscounts) writeField6(oprot thrift.TProtocol) (err error) {
 	if p.IsSetExtra() {
-		if err = oprot.WriteFieldBegin("Extra", thrift.STRING, 6); err != nil {
+		if err = oprot.WriteFieldBegin("extra", thrift.STRING, 6); err != nil {
 			goto WriteFieldBeginError
 		}
 		if err := oprot.WriteString(*p.Extra); err != nil {
@@ -524,7 +524,7 @@ WriteFieldEndError:
 
 func (p *CpsRebateDiscounts) writeField7(oprot thrift.TProtocol) (err error) {
 	if p.IsSetStatus() {
-		if err = oprot.WriteFieldBegin("Status", thrift.I32, 7); err != nil {
+		if err = oprot.WriteFieldBegin("status", thrift.I32, 7); err != nil {
 			goto WriteFieldBeginError
 		}
 		if err := oprot.WriteI32(*p.Status); err != nil {
@@ -555,10 +555,10 @@ func (p *CpsRebateDiscounts) DeepEqual(ano *CpsRebateDiscounts) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.ID) {
+	if !p.Field1DeepEqual(ano.Id) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.AppID) {
+	if !p.Field2DeepEqual(ano.AppId) {
 		return false
 	}
 	if !p.Field3DeepEqual(ano.Name) {
@@ -581,24 +581,24 @@ func (p *CpsRebateDiscounts) DeepEqual(ano *CpsRebateDiscounts) bool {
 
 func (p *CpsRebateDiscounts) Field1DeepEqual(src *string) bool {
 
-	if p.ID == src {
+	if p.Id == src {
 		return true
-	} else if p.ID == nil || src == nil {
+	} else if p.Id == nil || src == nil {
 		return false
 	}
-	if strings.Compare(*p.ID, *src) != 0 {
+	if strings.Compare(*p.Id, *src) != 0 {
 		return false
 	}
 	return true
 }
 func (p *CpsRebateDiscounts) Field2DeepEqual(src *string) bool {
 
-	if p.AppID == src {
+	if p.AppId == src {
 		return true
-	} else if p.AppID == nil || src == nil {
+	} else if p.AppId == nil || src == nil {
 		return false
 	}
-	if strings.Compare(*p.AppID, *src) != 0 {
+	if strings.Compare(*p.AppId, *src) != 0 {
 		return false
 	}
 	return true
@@ -665,9 +665,9 @@ func (p *CpsRebateDiscounts) Field7DeepEqual(src *int32) bool {
 }
 
 type Pagination struct {
-	PageIndex  int32 `thrift:"PageIndex,1,required" frugal:"1,required,i32" json:"PageIndex"`
-	PageSize   int32 `thrift:"PageSize,2,required" frugal:"2,required,i32" json:"PageSize"`
-	TotalCount int32 `thrift:"TotalCount,3,required" frugal:"3,required,i32" json:"TotalCount"`
+	PageIndex  int32 `thrift:"page_index,1,required" frugal:"1,required,i32" json:"page_index"`
+	PageSize   int32 `thrift:"page_size,2,required" frugal:"2,required,i32" json:"page_size"`
+	TotalCount int32 `thrift:"total_count,3,required" frugal:"3,required,i32" json:"total_count"`
 }
 
 func NewPagination() *Pagination {
@@ -700,9 +700,9 @@ func (p *Pagination) SetTotalCount(val int32) {
 }
 
 var fieldIDToName_Pagination = map[int16]string{
-	1: "PageIndex",
-	2: "PageSize",
-	3: "TotalCount",
+	1: "page_index",
+	2: "page_size",
+	3: "total_count",
 }
 
 func (p *Pagination) Read(iprot thrift.TProtocol) (err error) {
@@ -864,7 +864,7 @@ WriteStructEndError:
 }
 
 func (p *Pagination) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("PageIndex", thrift.I32, 1); err != nil {
+	if err = oprot.WriteFieldBegin("page_index", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteI32(p.PageIndex); err != nil {
@@ -881,7 +881,7 @@ WriteFieldEndError:
 }
 
 func (p *Pagination) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("PageSize", thrift.I32, 2); err != nil {
+	if err = oprot.WriteFieldBegin("page_size", thrift.I32, 2); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteI32(p.PageSize); err != nil {
@@ -898,7 +898,7 @@ WriteFieldEndError:
 }
 
 func (p *Pagination) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("TotalCount", thrift.I32, 3); err != nil {
+	if err = oprot.WriteFieldBegin("total_count", thrift.I32, 3); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteI32(p.TotalCount); err != nil {
