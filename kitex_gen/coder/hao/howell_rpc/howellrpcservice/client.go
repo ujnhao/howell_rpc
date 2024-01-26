@@ -12,6 +12,7 @@ import (
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	CreateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.CreateCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.CreateCpsRebateDiscountsResponse, err error)
+	MGetCpsRebateDiscounts(ctx context.Context, req *howell_rpc.MGetCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.MGetCpsRebateDiscountsResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -46,4 +47,9 @@ type kHowellRpcServiceClient struct {
 func (p *kHowellRpcServiceClient) CreateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.CreateCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.CreateCpsRebateDiscountsResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.CreateCpsRebateDiscounts(ctx, req)
+}
+
+func (p *kHowellRpcServiceClient) MGetCpsRebateDiscounts(ctx context.Context, req *howell_rpc.MGetCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.MGetCpsRebateDiscountsResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.MGetCpsRebateDiscounts(ctx, req)
 }

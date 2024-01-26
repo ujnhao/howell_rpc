@@ -20,10 +20,11 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	handlerType := (*howell_rpc.HowellRpcService)(nil)
 	methods := map[string]kitex.MethodInfo{
 		"CreateCpsRebateDiscounts": kitex.NewMethodInfo(createCpsRebateDiscountsHandler, newHowellRpcServiceCreateCpsRebateDiscountsArgs, newHowellRpcServiceCreateCpsRebateDiscountsResult, false),
+		"MGetCpsRebateDiscounts":   kitex.NewMethodInfo(mGetCpsRebateDiscountsHandler, newHowellRpcServiceMGetCpsRebateDiscountsArgs, newHowellRpcServiceMGetCpsRebateDiscountsResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName":     "howell_rpc",
-		"ServiceFilePath": `idl/howell_rpc.thrift`,
+		"ServiceFilePath": `../idl/howell_rpc.thrift`,
 	}
 	svcInfo := &kitex.ServiceInfo{
 		ServiceName:     serviceName,
@@ -54,6 +55,24 @@ func newHowellRpcServiceCreateCpsRebateDiscountsResult() interface{} {
 	return howell_rpc.NewHowellRpcServiceCreateCpsRebateDiscountsResult()
 }
 
+func mGetCpsRebateDiscountsHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*howell_rpc.HowellRpcServiceMGetCpsRebateDiscountsArgs)
+	realResult := result.(*howell_rpc.HowellRpcServiceMGetCpsRebateDiscountsResult)
+	success, err := handler.(howell_rpc.HowellRpcService).MGetCpsRebateDiscounts(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newHowellRpcServiceMGetCpsRebateDiscountsArgs() interface{} {
+	return howell_rpc.NewHowellRpcServiceMGetCpsRebateDiscountsArgs()
+}
+
+func newHowellRpcServiceMGetCpsRebateDiscountsResult() interface{} {
+	return howell_rpc.NewHowellRpcServiceMGetCpsRebateDiscountsResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -69,6 +88,16 @@ func (p *kClient) CreateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.
 	_args.Req = req
 	var _result howell_rpc.HowellRpcServiceCreateCpsRebateDiscountsResult
 	if err = p.c.Call(ctx, "CreateCpsRebateDiscounts", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) MGetCpsRebateDiscounts(ctx context.Context, req *howell_rpc.MGetCpsRebateDiscountsRequest) (r *howell_rpc.MGetCpsRebateDiscountsResponse, err error) {
+	var _args howell_rpc.HowellRpcServiceMGetCpsRebateDiscountsArgs
+	_args.Req = req
+	var _result howell_rpc.HowellRpcServiceMGetCpsRebateDiscountsResult
+	if err = p.c.Call(ctx, "MGetCpsRebateDiscounts", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

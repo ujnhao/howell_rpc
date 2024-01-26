@@ -2,16 +2,16 @@ package models
 
 import (
 	"fmt"
-	"howell/howell_rpc/kitex_gen/coder/hao/howell_rpc"
+	"howell/howell_rpc/kitex_gen/models"
 	"strings"
 	"time"
 )
 
 type CpsRebateDiscounts struct {
 	ID        string    `json:"id"`
-	AppID     int64     `json:"app_id"`
+	AppID     string    `json:"app_id"`
 	Name      string    `json:"name"`
-	CPSType   int32     `json:"cps_type"`
+	CpsType   int32     `json:"cps_type"`
 	JumpLink  string    `json:"jump_link"`
 	Status    int       `json:"status"`
 	Extra     string    `json:"extra"`
@@ -23,20 +23,34 @@ func NewCpsRebateDiscounts() *CpsRebateDiscounts {
 	return &CpsRebateDiscounts{}
 }
 
-func (m *CpsRebateDiscounts) FromRPC(r *howell_rpc.CpsRebateDiscounts) *CpsRebateDiscounts {
+func (m *CpsRebateDiscounts) FromRPC(r *models.CpsRebateDiscounts) *CpsRebateDiscounts {
 	return &CpsRebateDiscounts{
 		ID:       r.GetId(),
 		AppID:    r.GetAppId(),
 		Name:     r.GetName(),
-		CPSType:  int32(r.GetCpsType()),
+		CpsType:  int32(r.GetCpsType()),
 		JumpLink: r.GetJumpLink(),
 		Status:   0,
 		Extra:    r.GetExtra(),
 	}
 }
 
+func (m *CpsRebateDiscounts) ToRPC() *models.CpsRebateDiscounts {
+	status := int32(m.Status)
+	return &models.CpsRebateDiscounts{
+		Id:    &m.ID,
+		AppId: &m.AppID,
+		Name:  &m.Name,
+		CpsType: models.CpsTypePtr(
+			models.CpsType(m.CpsType)),
+		JumpLink: &m.JumpLink,
+		Status:   &status,
+		Extra:    &m.Extra,
+	}
+}
+
 func (m *CpsRebateDiscounts) Check() error {
-	if m.AppID <= 0 {
+	if m.AppID == "" {
 		return fmt.Errorf("invalid app_id")
 	}
 	if m.Name == "" {
