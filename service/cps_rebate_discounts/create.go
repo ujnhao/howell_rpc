@@ -2,32 +2,32 @@ package cps_rebate_discounts
 
 import (
 	"context"
-	"howell/howell_rpc/infra/db"
+	"howell/howell_rpc/domain/cps_rebate_discounts_agg"
+	"howell/howell_rpc/domain/cps_rebate_discounts_agg/entity"
 	"howell/howell_rpc/log"
-	"howell/howell_rpc/models"
 	"howell/howell_rpc/util"
 )
 
-func Create(ctx context.Context, entity *models.CpsRebateDiscounts) (string, error) {
+func Create(ctx context.Context, entityInfo *entity.CpsRebateDiscounts) (string, error) {
 	// 没有传入ID自动生成
-	if entity.ID == "" {
+	if entityInfo.ID == "" {
 		entityID, err := util.SecureRandId(8)
 		if err != nil {
 			log.NewPrefixLogger("server_cps_rebate_discounts").Error("secure rand id error, err:%v", err)
 			return "", err
 		}
-		entity.ID = entityID
+		entityInfo.ID = entityID
 	}
 
-	if err := entity.Check(); err != nil {
-		log.NewPrefixLogger("server_cps_rebate_discounts").Error("params check error, err:%v", err)
+	if err := entityInfo.Check(); err != nil {
+		_ = log.NewPrefixLogger("server_cps_rebate_discounts").Error("params check error, err:%v", err)
 		return "", err
 	}
 
-	if err := db.CreateCpsRebateDiscounts(ctx, entity); err != nil {
-		log.NewPrefixLogger("server_cps_rebate_discounts").Error("db.CreateCpsRebateDiscounts error, err:%v", err)
+	if err := cps_rebate_discounts_agg.CpsRebateDiscountsAgg().CreateCpsRebateDiscounts(ctx, entityInfo); err != nil {
+		_ = log.NewPrefixLogger("server_cps_rebate_discounts").Error("db.CreateCpsRebateDiscounts error, err:%v", err)
 		return "", err
 	}
 
-	return entity.ID, nil
+	return entityInfo.ID, nil
 }

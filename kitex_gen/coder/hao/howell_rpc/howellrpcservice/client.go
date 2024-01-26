@@ -13,6 +13,7 @@ import (
 type Client interface {
 	CreateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.CreateCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.CreateCpsRebateDiscountsResponse, err error)
 	MGetCpsRebateDiscounts(ctx context.Context, req *howell_rpc.MGetCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.MGetCpsRebateDiscountsResponse, err error)
+	QueryCpsRebateDiscounts(ctx context.Context, req *howell_rpc.QueryCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.QueryCpsRebateDiscountsResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -52,4 +53,9 @@ func (p *kHowellRpcServiceClient) CreateCpsRebateDiscounts(ctx context.Context, 
 func (p *kHowellRpcServiceClient) MGetCpsRebateDiscounts(ctx context.Context, req *howell_rpc.MGetCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.MGetCpsRebateDiscountsResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.MGetCpsRebateDiscounts(ctx, req)
+}
+
+func (p *kHowellRpcServiceClient) QueryCpsRebateDiscounts(ctx context.Context, req *howell_rpc.QueryCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.QueryCpsRebateDiscountsResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.QueryCpsRebateDiscounts(ctx, req)
 }

@@ -18,6 +18,6 @@ func Init() {
 	}
 }
 
-func getDB() *gorm.DB {
+func GetDB() *gorm.DB {
 	return howellDb
 }

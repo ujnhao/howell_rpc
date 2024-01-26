@@ -18,3 +18,8 @@ func (s *HowellRpcServiceImpl) CreateCpsRebateDiscounts(ctx context.Context, req
 func (s *HowellRpcServiceImpl) MGetCpsRebateDiscounts(ctx context.Context, req *howell_rpc.MGetCpsRebateDiscountsRequest) (resp *howell_rpc.MGetCpsRebateDiscountsResponse, err error) {
 	return handlers.MGetCpsRebateDiscounts(ctx, req)
 }
+
+// QueryCpsRebateDiscounts query cps_crd
+func (s *HowellRpcServiceImpl) QueryCpsRebateDiscounts(ctx context.Context, req *howell_rpc.QueryCpsRebateDiscountsRequest) (resp *howell_rpc.QueryCpsRebateDiscountsResponse, err error) {
+	return handlers.QueryCpsRebateDiscounts(ctx, req)
+}
