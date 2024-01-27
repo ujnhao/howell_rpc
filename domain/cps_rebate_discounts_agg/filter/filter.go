@@ -1,6 +1,8 @@
 package filter
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 type QueryCRTFilter struct {
 	IDList []string `json:"id_list"`

@@ -2,6 +2,7 @@ package entity
 
 import (
 	"fmt"
+	"howell/howell_rpc/kitex_gen/common"
 	"howell/howell_rpc/kitex_gen/models"
 	"strings"
 	"time"
@@ -11,9 +12,12 @@ type CpsRebateDiscounts struct {
 	ID        string    `json:"id"`
 	AppID     string    `json:"app_id"`
 	Name      string    `json:"name"`
-	CpsType   int32     `json:"cps_type"`
-	JumpLink  string    `json:"jump_link"`
-	Status    int       `json:"status"`
+	CpsType   string    `json:"cps_type"`
+	ActType   string    `json:"act_type"`
+	ActUrl    string    `json:"act_url"`
+	Images    string    `json:"images"`
+	Resource  string    `json:"resource"`
+	Status    int32     `json:"status"`
 	Extra     string    `json:"extra"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
@@ -25,39 +29,53 @@ func NewCpsRebateDiscounts() *CpsRebateDiscounts {
 
 func (m *CpsRebateDiscounts) FromRPC(r *models.CpsRebateDiscounts) *CpsRebateDiscounts {
 	return &CpsRebateDiscounts{
-		ID:       r.GetId(),
-		AppID:    r.GetAppId(),
-		Name:     r.GetName(),
-		CpsType:  int32(r.GetCpsType()),
-		JumpLink: r.GetJumpLink(),
-		Status:   0,
-		Extra:    r.GetExtra(),
+		ID:        r.GetId(),
+		AppID:     r.GetAppId(),
+		Name:      r.GetName(),
+		CpsType:   r.GetCpsType(),
+		ActType:   r.GetActTpye(),
+		ActUrl:    r.GetActUrl(),
+		Images:    r.GetImages(),
+		Resource:  r.GetResource(),
+		Status:    int32(r.GetStatus()),
+		Extra:     r.GetExtra(),
+		CreatedAt: time.Time{},
+		UpdatedAt: time.Time{},
 	}
 }
 
 func (m *CpsRebateDiscounts) ToRPC() *models.CpsRebateDiscounts {
-	status := int32(m.Status)
 	return &models.CpsRebateDiscounts{
-		Id:    &m.ID,
-		AppId: &m.AppID,
-		Name:  &m.Name,
-		CpsType: models.CpsTypePtr(
-			models.CpsType(m.CpsType)),
-		JumpLink: &m.JumpLink,
-		Status:   &status,
+		Id:       &m.ID,
+		AppId:    &m.AppID,
+		Name:     &m.Name,
+		CpsType:  (*common.CpsType)(&m.CpsType),
+		ActTpye:  (*common.ActType)(&m.ActType),
+		ActUrl:   &m.ActUrl,
+		Images:   &m.Images,
+		Resource: &m.Resource,
+		Status:   common.StatusPtr(common.Status(m.Status)),
 		Extra:    &m.Extra,
 	}
 }
 
 func (m *CpsRebateDiscounts) Check() error {
-	if m.AppID == "" {
-		return fmt.Errorf("invalid app_id")
-	}
 	if m.Name == "" {
 		return fmt.Errorf("invalid name")
 	}
-	if m.JumpLink == "" || len(strings.TrimSpace(m.JumpLink)) != len(m.JumpLink) {
-		return fmt.Errorf("invalid jump_link")
+	if m.Resource == "" {
+		return fmt.Errorf("invalid resource")
+	}
+	if m.CpsType != common.MeiTuan {
+		return fmt.Errorf("invalid cps_type")
+	}
+	if m.ActType != common.MiniProgram &&
+		m.ActType != common.H5 {
+		return fmt.Errorf("act_type")
+	}
+	if m.ActUrl == "" ||
+		len(strings.TrimSpace(m.ActUrl)) != len(m.ActUrl) {
+		return fmt.Errorf("invalid act_url")
 	}
 	return nil
 }

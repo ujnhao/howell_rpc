@@ -3,58 +3,23 @@
 package models
 
 import (
-	"database/sql"
-	"database/sql/driver"
 	"fmt"
 	"github.com/apache/thrift/lib/go/thrift"
+	"howell/howell_rpc/kitex_gen/common"
 	"strings"
 )
 
-type CpsType int64
-
-const (
-	CpsType_Unknow CpsType = 0
-)
-
-func (p CpsType) String() string {
-	switch p {
-	case CpsType_Unknow:
-		return "Unknow"
-	}
-	return "<UNSET>"
-}
-
-func CpsTypeFromString(s string) (CpsType, error) {
-	switch s {
-	case "Unknow":
-		return CpsType_Unknow, nil
-	}
-	return CpsType(0), fmt.Errorf("not a valid CpsType string")
-}
-
-func CpsTypePtr(v CpsType) *CpsType { return &v }
-func (p *CpsType) Scan(value interface{}) (err error) {
-	var result sql.NullInt64
-	err = result.Scan(value)
-	*p = CpsType(result.Int64)
-	return
-}
-
-func (p *CpsType) Value() (driver.Value, error) {
-	if p == nil {
-		return nil, nil
-	}
-	return int64(*p), nil
-}
-
 type CpsRebateDiscounts struct {
-	Id       *string  `thrift:"id,1,optional" frugal:"1,optional,string" json:"id,omitempty"`
-	AppId    *string  `thrift:"app_id,2,optional" frugal:"2,optional,string" json:"app_id,omitempty"`
-	Name     *string  `thrift:"name,3,optional" frugal:"3,optional,string" json:"name,omitempty"`
-	CpsType  *CpsType `thrift:"cps_type,4,optional" frugal:"4,optional,CpsType" json:"cps_type,omitempty"`
-	JumpLink *string  `thrift:"jump_link,5,optional" frugal:"5,optional,string" json:"jump_link,omitempty"`
-	Extra    *string  `thrift:"extra,6,optional" frugal:"6,optional,string" json:"extra,omitempty"`
-	Status   *int32   `thrift:"status,7,optional" frugal:"7,optional,i32" json:"status,omitempty"`
+	Id       *string         `thrift:"id,1,optional" frugal:"1,optional,string" json:"id,omitempty"`
+	AppId    *string         `thrift:"app_id,2,optional" frugal:"2,optional,string" json:"app_id,omitempty"`
+	Name     *string         `thrift:"name,3,optional" frugal:"3,optional,string" json:"name,omitempty"`
+	CpsType  *common.CpsType `thrift:"cps_type,4,optional" frugal:"4,optional,string" json:"cps_type,omitempty"`
+	ActTpye  *common.ActType `thrift:"act_tpye,5,optional" frugal:"5,optional,string" json:"act_tpye,omitempty"`
+	ActUrl   *string         `thrift:"act_url,6,optional" frugal:"6,optional,string" json:"act_url,omitempty"`
+	Images   *string         `thrift:"images,7,optional" frugal:"7,optional,string" json:"images,omitempty"`
+	Extra    *string         `thrift:"extra,8,optional" frugal:"8,optional,string" json:"extra,omitempty"`
+	Status   *common.Status  `thrift:"status,9,optional" frugal:"9,optional,Status" json:"status,omitempty"`
+	Resource *string         `thrift:"resource,10,optional" frugal:"10,optional,string" json:"resource,omitempty"`
 }
 
 func NewCpsRebateDiscounts() *CpsRebateDiscounts {
@@ -92,22 +57,40 @@ func (p *CpsRebateDiscounts) GetName() (v string) {
 	return *p.Name
 }
 
-var CpsRebateDiscounts_CpsType_DEFAULT CpsType
+var CpsRebateDiscounts_CpsType_DEFAULT common.CpsType
 
-func (p *CpsRebateDiscounts) GetCpsType() (v CpsType) {
+func (p *CpsRebateDiscounts) GetCpsType() (v common.CpsType) {
 	if !p.IsSetCpsType() {
 		return CpsRebateDiscounts_CpsType_DEFAULT
 	}
 	return *p.CpsType
 }
 
-var CpsRebateDiscounts_JumpLink_DEFAULT string
+var CpsRebateDiscounts_ActTpye_DEFAULT common.ActType
 
-func (p *CpsRebateDiscounts) GetJumpLink() (v string) {
-	if !p.IsSetJumpLink() {
-		return CpsRebateDiscounts_JumpLink_DEFAULT
+func (p *CpsRebateDiscounts) GetActTpye() (v common.ActType) {
+	if !p.IsSetActTpye() {
+		return CpsRebateDiscounts_ActTpye_DEFAULT
 	}
-	return *p.JumpLink
+	return *p.ActTpye
+}
+
+var CpsRebateDiscounts_ActUrl_DEFAULT string
+
+func (p *CpsRebateDiscounts) GetActUrl() (v string) {
+	if !p.IsSetActUrl() {
+		return CpsRebateDiscounts_ActUrl_DEFAULT
+	}
+	return *p.ActUrl
+}
+
+var CpsRebateDiscounts_Images_DEFAULT string
+
+func (p *CpsRebateDiscounts) GetImages() (v string) {
+	if !p.IsSetImages() {
+		return CpsRebateDiscounts_Images_DEFAULT
+	}
+	return *p.Images
 }
 
 var CpsRebateDiscounts_Extra_DEFAULT string
@@ -119,13 +102,22 @@ func (p *CpsRebateDiscounts) GetExtra() (v string) {
 	return *p.Extra
 }
 
-var CpsRebateDiscounts_Status_DEFAULT int32
+var CpsRebateDiscounts_Status_DEFAULT common.Status
 
-func (p *CpsRebateDiscounts) GetStatus() (v int32) {
+func (p *CpsRebateDiscounts) GetStatus() (v common.Status) {
 	if !p.IsSetStatus() {
 		return CpsRebateDiscounts_Status_DEFAULT
 	}
 	return *p.Status
+}
+
+var CpsRebateDiscounts_Resource_DEFAULT string
+
+func (p *CpsRebateDiscounts) GetResource() (v string) {
+	if !p.IsSetResource() {
+		return CpsRebateDiscounts_Resource_DEFAULT
+	}
+	return *p.Resource
 }
 func (p *CpsRebateDiscounts) SetId(val *string) {
 	p.Id = val
@@ -136,27 +128,39 @@ func (p *CpsRebateDiscounts) SetAppId(val *string) {
 func (p *CpsRebateDiscounts) SetName(val *string) {
 	p.Name = val
 }
-func (p *CpsRebateDiscounts) SetCpsType(val *CpsType) {
+func (p *CpsRebateDiscounts) SetCpsType(val *common.CpsType) {
 	p.CpsType = val
 }
-func (p *CpsRebateDiscounts) SetJumpLink(val *string) {
-	p.JumpLink = val
+func (p *CpsRebateDiscounts) SetActTpye(val *common.ActType) {
+	p.ActTpye = val
+}
+func (p *CpsRebateDiscounts) SetActUrl(val *string) {
+	p.ActUrl = val
+}
+func (p *CpsRebateDiscounts) SetImages(val *string) {
+	p.Images = val
 }
 func (p *CpsRebateDiscounts) SetExtra(val *string) {
 	p.Extra = val
 }
-func (p *CpsRebateDiscounts) SetStatus(val *int32) {
+func (p *CpsRebateDiscounts) SetStatus(val *common.Status) {
 	p.Status = val
+}
+func (p *CpsRebateDiscounts) SetResource(val *string) {
+	p.Resource = val
 }
 
 var fieldIDToName_CpsRebateDiscounts = map[int16]string{
-	1: "id",
-	2: "app_id",
-	3: "name",
-	4: "cps_type",
-	5: "jump_link",
-	6: "extra",
-	7: "status",
+	1:  "id",
+	2:  "app_id",
+	3:  "name",
+	4:  "cps_type",
+	5:  "act_tpye",
+	6:  "act_url",
+	7:  "images",
+	8:  "extra",
+	9:  "status",
+	10: "resource",
 }
 
 func (p *CpsRebateDiscounts) IsSetId() bool {
@@ -175,8 +179,16 @@ func (p *CpsRebateDiscounts) IsSetCpsType() bool {
 	return p.CpsType != nil
 }
 
-func (p *CpsRebateDiscounts) IsSetJumpLink() bool {
-	return p.JumpLink != nil
+func (p *CpsRebateDiscounts) IsSetActTpye() bool {
+	return p.ActTpye != nil
+}
+
+func (p *CpsRebateDiscounts) IsSetActUrl() bool {
+	return p.ActUrl != nil
+}
+
+func (p *CpsRebateDiscounts) IsSetImages() bool {
+	return p.Images != nil
 }
 
 func (p *CpsRebateDiscounts) IsSetExtra() bool {
@@ -185,6 +197,10 @@ func (p *CpsRebateDiscounts) IsSetExtra() bool {
 
 func (p *CpsRebateDiscounts) IsSetStatus() bool {
 	return p.Status != nil
+}
+
+func (p *CpsRebateDiscounts) IsSetResource() bool {
+	return p.Resource != nil
 }
 
 func (p *CpsRebateDiscounts) Read(iprot thrift.TProtocol) (err error) {
@@ -231,7 +247,7 @@ func (p *CpsRebateDiscounts) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 4:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -255,8 +271,32 @@ func (p *CpsRebateDiscounts) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 7:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField7(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 8:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField8(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 9:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField9(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 10:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField10(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -320,11 +360,10 @@ func (p *CpsRebateDiscounts) ReadField3(iprot thrift.TProtocol) error {
 }
 func (p *CpsRebateDiscounts) ReadField4(iprot thrift.TProtocol) error {
 
-	if v, err := iprot.ReadI32(); err != nil {
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		tmp := CpsType(v)
-		p.CpsType = &tmp
+		p.CpsType = &v
 	}
 	return nil
 }
@@ -333,7 +372,7 @@ func (p *CpsRebateDiscounts) ReadField5(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.JumpLink = &v
+		p.ActTpye = &v
 	}
 	return nil
 }
@@ -342,16 +381,44 @@ func (p *CpsRebateDiscounts) ReadField6(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.Extra = &v
+		p.ActUrl = &v
 	}
 	return nil
 }
 func (p *CpsRebateDiscounts) ReadField7(iprot thrift.TProtocol) error {
 
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.Images = &v
+	}
+	return nil
+}
+func (p *CpsRebateDiscounts) ReadField8(iprot thrift.TProtocol) error {
+
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.Extra = &v
+	}
+	return nil
+}
+func (p *CpsRebateDiscounts) ReadField9(iprot thrift.TProtocol) error {
+
 	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
-		p.Status = &v
+		tmp := common.Status(v)
+		p.Status = &tmp
+	}
+	return nil
+}
+func (p *CpsRebateDiscounts) ReadField10(iprot thrift.TProtocol) error {
+
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.Resource = &v
 	}
 	return nil
 }
@@ -388,6 +455,18 @@ func (p *CpsRebateDiscounts) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField7(oprot); err != nil {
 			fieldId = 7
+			goto WriteFieldError
+		}
+		if err = p.writeField8(oprot); err != nil {
+			fieldId = 8
+			goto WriteFieldError
+		}
+		if err = p.writeField9(oprot); err != nil {
+			fieldId = 9
+			goto WriteFieldError
+		}
+		if err = p.writeField10(oprot); err != nil {
+			fieldId = 10
 			goto WriteFieldError
 		}
 	}
@@ -467,10 +546,10 @@ WriteFieldEndError:
 
 func (p *CpsRebateDiscounts) writeField4(oprot thrift.TProtocol) (err error) {
 	if p.IsSetCpsType() {
-		if err = oprot.WriteFieldBegin("cps_type", thrift.I32, 4); err != nil {
+		if err = oprot.WriteFieldBegin("cps_type", thrift.STRING, 4); err != nil {
 			goto WriteFieldBeginError
 		}
-		if err := oprot.WriteI32(int32(*p.CpsType)); err != nil {
+		if err := oprot.WriteString(*p.CpsType); err != nil {
 			return err
 		}
 		if err = oprot.WriteFieldEnd(); err != nil {
@@ -485,11 +564,11 @@ WriteFieldEndError:
 }
 
 func (p *CpsRebateDiscounts) writeField5(oprot thrift.TProtocol) (err error) {
-	if p.IsSetJumpLink() {
-		if err = oprot.WriteFieldBegin("jump_link", thrift.STRING, 5); err != nil {
+	if p.IsSetActTpye() {
+		if err = oprot.WriteFieldBegin("act_tpye", thrift.STRING, 5); err != nil {
 			goto WriteFieldBeginError
 		}
-		if err := oprot.WriteString(*p.JumpLink); err != nil {
+		if err := oprot.WriteString(*p.ActTpye); err != nil {
 			return err
 		}
 		if err = oprot.WriteFieldEnd(); err != nil {
@@ -504,11 +583,11 @@ WriteFieldEndError:
 }
 
 func (p *CpsRebateDiscounts) writeField6(oprot thrift.TProtocol) (err error) {
-	if p.IsSetExtra() {
-		if err = oprot.WriteFieldBegin("extra", thrift.STRING, 6); err != nil {
+	if p.IsSetActUrl() {
+		if err = oprot.WriteFieldBegin("act_url", thrift.STRING, 6); err != nil {
 			goto WriteFieldBeginError
 		}
-		if err := oprot.WriteString(*p.Extra); err != nil {
+		if err := oprot.WriteString(*p.ActUrl); err != nil {
 			return err
 		}
 		if err = oprot.WriteFieldEnd(); err != nil {
@@ -523,11 +602,11 @@ WriteFieldEndError:
 }
 
 func (p *CpsRebateDiscounts) writeField7(oprot thrift.TProtocol) (err error) {
-	if p.IsSetStatus() {
-		if err = oprot.WriteFieldBegin("status", thrift.I32, 7); err != nil {
+	if p.IsSetImages() {
+		if err = oprot.WriteFieldBegin("images", thrift.STRING, 7); err != nil {
 			goto WriteFieldBeginError
 		}
-		if err := oprot.WriteI32(*p.Status); err != nil {
+		if err := oprot.WriteString(*p.Images); err != nil {
 			return err
 		}
 		if err = oprot.WriteFieldEnd(); err != nil {
@@ -539,6 +618,63 @@ WriteFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 7 begin error: ", p), err)
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 7 end error: ", p), err)
+}
+
+func (p *CpsRebateDiscounts) writeField8(oprot thrift.TProtocol) (err error) {
+	if p.IsSetExtra() {
+		if err = oprot.WriteFieldBegin("extra", thrift.STRING, 8); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := oprot.WriteString(*p.Extra); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 end error: ", p), err)
+}
+
+func (p *CpsRebateDiscounts) writeField9(oprot thrift.TProtocol) (err error) {
+	if p.IsSetStatus() {
+		if err = oprot.WriteFieldBegin("status", thrift.I32, 9); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := oprot.WriteI32(int32(*p.Status)); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 end error: ", p), err)
+}
+
+func (p *CpsRebateDiscounts) writeField10(oprot thrift.TProtocol) (err error) {
+	if p.IsSetResource() {
+		if err = oprot.WriteFieldBegin("resource", thrift.STRING, 10); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := oprot.WriteString(*p.Resource); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 end error: ", p), err)
 }
 
 func (p *CpsRebateDiscounts) String() string {
@@ -567,13 +703,22 @@ func (p *CpsRebateDiscounts) DeepEqual(ano *CpsRebateDiscounts) bool {
 	if !p.Field4DeepEqual(ano.CpsType) {
 		return false
 	}
-	if !p.Field5DeepEqual(ano.JumpLink) {
+	if !p.Field5DeepEqual(ano.ActTpye) {
 		return false
 	}
-	if !p.Field6DeepEqual(ano.Extra) {
+	if !p.Field6DeepEqual(ano.ActUrl) {
 		return false
 	}
-	if !p.Field7DeepEqual(ano.Status) {
+	if !p.Field7DeepEqual(ano.Images) {
+		return false
+	}
+	if !p.Field8DeepEqual(ano.Extra) {
+		return false
+	}
+	if !p.Field9DeepEqual(ano.Status) {
+		return false
+	}
+	if !p.Field10DeepEqual(ano.Resource) {
 		return false
 	}
 	return true
@@ -615,31 +760,55 @@ func (p *CpsRebateDiscounts) Field3DeepEqual(src *string) bool {
 	}
 	return true
 }
-func (p *CpsRebateDiscounts) Field4DeepEqual(src *CpsType) bool {
+func (p *CpsRebateDiscounts) Field4DeepEqual(src *common.CpsType) bool {
 
 	if p.CpsType == src {
 		return true
 	} else if p.CpsType == nil || src == nil {
 		return false
 	}
-	if *p.CpsType != *src {
+	if strings.Compare(*p.CpsType, *src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *CpsRebateDiscounts) Field5DeepEqual(src *string) bool {
+func (p *CpsRebateDiscounts) Field5DeepEqual(src *common.ActType) bool {
 
-	if p.JumpLink == src {
+	if p.ActTpye == src {
 		return true
-	} else if p.JumpLink == nil || src == nil {
+	} else if p.ActTpye == nil || src == nil {
 		return false
 	}
-	if strings.Compare(*p.JumpLink, *src) != 0 {
+	if strings.Compare(*p.ActTpye, *src) != 0 {
 		return false
 	}
 	return true
 }
 func (p *CpsRebateDiscounts) Field6DeepEqual(src *string) bool {
+
+	if p.ActUrl == src {
+		return true
+	} else if p.ActUrl == nil || src == nil {
+		return false
+	}
+	if strings.Compare(*p.ActUrl, *src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *CpsRebateDiscounts) Field7DeepEqual(src *string) bool {
+
+	if p.Images == src {
+		return true
+	} else if p.Images == nil || src == nil {
+		return false
+	}
+	if strings.Compare(*p.Images, *src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *CpsRebateDiscounts) Field8DeepEqual(src *string) bool {
 
 	if p.Extra == src {
 		return true
@@ -651,7 +820,7 @@ func (p *CpsRebateDiscounts) Field6DeepEqual(src *string) bool {
 	}
 	return true
 }
-func (p *CpsRebateDiscounts) Field7DeepEqual(src *int32) bool {
+func (p *CpsRebateDiscounts) Field9DeepEqual(src *common.Status) bool {
 
 	if p.Status == src {
 		return true
@@ -663,300 +832,14 @@ func (p *CpsRebateDiscounts) Field7DeepEqual(src *int32) bool {
 	}
 	return true
 }
+func (p *CpsRebateDiscounts) Field10DeepEqual(src *string) bool {
 
-type Pagination struct {
-	PageIndex  int32 `thrift:"page_index,1,required" frugal:"1,required,i32" json:"page_index"`
-	PageSize   int32 `thrift:"page_size,2,required" frugal:"2,required,i32" json:"page_size"`
-	TotalCount int32 `thrift:"total_count,3,required" frugal:"3,required,i32" json:"total_count"`
-}
-
-func NewPagination() *Pagination {
-	return &Pagination{}
-}
-
-func (p *Pagination) InitDefault() {
-	*p = Pagination{}
-}
-
-func (p *Pagination) GetPageIndex() (v int32) {
-	return p.PageIndex
-}
-
-func (p *Pagination) GetPageSize() (v int32) {
-	return p.PageSize
-}
-
-func (p *Pagination) GetTotalCount() (v int32) {
-	return p.TotalCount
-}
-func (p *Pagination) SetPageIndex(val int32) {
-	p.PageIndex = val
-}
-func (p *Pagination) SetPageSize(val int32) {
-	p.PageSize = val
-}
-func (p *Pagination) SetTotalCount(val int32) {
-	p.TotalCount = val
-}
-
-var fieldIDToName_Pagination = map[int16]string{
-	1: "page_index",
-	2: "page_size",
-	3: "total_count",
-}
-
-func (p *Pagination) Read(iprot thrift.TProtocol) (err error) {
-
-	var fieldTypeId thrift.TType
-	var fieldId int16
-	var issetPageIndex bool = false
-	var issetPageSize bool = false
-	var issetTotalCount bool = false
-
-	if _, err = iprot.ReadStructBegin(); err != nil {
-		goto ReadStructBeginError
-	}
-
-	for {
-		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
-		if err != nil {
-			goto ReadFieldBeginError
-		}
-		if fieldTypeId == thrift.STOP {
-			break
-		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.I32 {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-				issetPageIndex = true
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 2:
-			if fieldTypeId == thrift.I32 {
-				if err = p.ReadField2(iprot); err != nil {
-					goto ReadFieldError
-				}
-				issetPageSize = true
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 3:
-			if fieldTypeId == thrift.I32 {
-				if err = p.ReadField3(iprot); err != nil {
-					goto ReadFieldError
-				}
-				issetTotalCount = true
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		}
-		if err = iprot.ReadFieldEnd(); err != nil {
-			goto ReadFieldEndError
-		}
-	}
-	if err = iprot.ReadStructEnd(); err != nil {
-		goto ReadStructEndError
-	}
-
-	if !issetPageIndex {
-		fieldId = 1
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetPageSize {
-		fieldId = 2
-		goto RequiredFieldNotSetError
-	}
-
-	if !issetTotalCount {
-		fieldId = 3
-		goto RequiredFieldNotSetError
-	}
-	return nil
-ReadStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
-ReadFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_Pagination[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
-
-ReadFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
-ReadStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-RequiredFieldNotSetError:
-	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_Pagination[fieldId]))
-}
-
-func (p *Pagination) ReadField1(iprot thrift.TProtocol) error {
-
-	if v, err := iprot.ReadI32(); err != nil {
-		return err
-	} else {
-		p.PageIndex = v
-	}
-	return nil
-}
-func (p *Pagination) ReadField2(iprot thrift.TProtocol) error {
-
-	if v, err := iprot.ReadI32(); err != nil {
-		return err
-	} else {
-		p.PageSize = v
-	}
-	return nil
-}
-func (p *Pagination) ReadField3(iprot thrift.TProtocol) error {
-
-	if v, err := iprot.ReadI32(); err != nil {
-		return err
-	} else {
-		p.TotalCount = v
-	}
-	return nil
-}
-
-func (p *Pagination) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
-	if err = oprot.WriteStructBegin("Pagination"); err != nil {
-		goto WriteStructBeginError
-	}
-	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-		if err = p.writeField2(oprot); err != nil {
-			fieldId = 2
-			goto WriteFieldError
-		}
-		if err = p.writeField3(oprot); err != nil {
-			fieldId = 3
-			goto WriteFieldError
-		}
-	}
-	if err = oprot.WriteFieldStop(); err != nil {
-		goto WriteFieldStopError
-	}
-	if err = oprot.WriteStructEnd(); err != nil {
-		goto WriteStructEndError
-	}
-	return nil
-WriteStructBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
-WriteFieldStopError:
-	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
-WriteStructEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *Pagination) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("page_index", thrift.I32, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteI32(p.PageIndex); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *Pagination) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("page_size", thrift.I32, 2); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteI32(p.PageSize); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
-}
-
-func (p *Pagination) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("total_count", thrift.I32, 3); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteI32(p.TotalCount); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
-}
-
-func (p *Pagination) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("Pagination(%+v)", *p)
-
-}
-
-func (p *Pagination) DeepEqual(ano *Pagination) bool {
-	if p == ano {
+	if p.Resource == src {
 		return true
-	} else if p == nil || ano == nil {
+	} else if p.Resource == nil || src == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.PageIndex) {
-		return false
-	}
-	if !p.Field2DeepEqual(ano.PageSize) {
-		return false
-	}
-	if !p.Field3DeepEqual(ano.TotalCount) {
-		return false
-	}
-	return true
-}
-
-func (p *Pagination) Field1DeepEqual(src int32) bool {
-
-	if p.PageIndex != src {
-		return false
-	}
-	return true
-}
-func (p *Pagination) Field2DeepEqual(src int32) bool {
-
-	if p.PageSize != src {
-		return false
-	}
-	return true
-}
-func (p *Pagination) Field3DeepEqual(src int32) bool {
-
-	if p.TotalCount != src {
+	if strings.Compare(*p.Resource, *src) != 0 {
 		return false
 	}
 	return true

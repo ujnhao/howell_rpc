@@ -13,6 +13,7 @@ import (
 	"github.com/cloudwego/kitex/pkg/protocol/bthrift"
 
 	"howell/howell_rpc/kitex_gen/base"
+	"howell/howell_rpc/kitex_gen/common"
 	"howell/howell_rpc/kitex_gen/models"
 )
 
@@ -25,6 +26,7 @@ var (
 	_ = thrift.TProtocol(nil)
 	_ = bthrift.BinaryWriter(nil)
 	_ = base.KitexUnusedProtection
+	_ = common.KitexUnusedProtection
 	_ = models.KitexUnusedProtection
 )
 
@@ -1269,7 +1271,7 @@ func (p *QueryCpsRebateDiscountsResponse) FastReadField1(buf []byte) (int, error
 func (p *QueryCpsRebateDiscountsResponse) FastReadField100(buf []byte) (int, error) {
 	offset := 0
 
-	tmp := models.NewPagination()
+	tmp := common.NewPagination()
 	if l, err := tmp.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {

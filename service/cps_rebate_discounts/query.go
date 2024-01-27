@@ -7,6 +7,7 @@ import (
 	"howell/howell_rpc/domain/cps_rebate_discounts_agg/entity"
 	"howell/howell_rpc/domain/cps_rebate_discounts_agg/filter"
 	"howell/howell_rpc/kitex_gen/coder/hao/howell_rpc"
+	"howell/howell_rpc/kitex_gen/common"
 	"howell/howell_rpc/kitex_gen/models"
 )
 
@@ -20,7 +21,7 @@ func MGetCpsRebateDiscountsByID(ctx context.Context, ids []string) ([]*entity.Cp
 }
 
 // QueryCpsRebateDiscounts query cps_crd
-func QueryCpsRebateDiscounts(ctx context.Context, req *howell_rpc.QueryCpsRebateDiscountsRequest) ([]*models.CpsRebateDiscounts, *models.Pagination, error) {
+func QueryCpsRebateDiscounts(ctx context.Context, req *howell_rpc.QueryCpsRebateDiscountsRequest) ([]*models.CpsRebateDiscounts, *common.Pagination, error) {
 	if req.GetPageIndex() < 1 {
 		return nil, nil, fmt.Errorf("页数下标不能小于1")
 	}
@@ -40,7 +41,7 @@ func QueryCpsRebateDiscounts(ctx context.Context, req *howell_rpc.QueryCpsRebate
 	for _, item := range entities {
 		rpcEntityList = append(rpcEntityList, item.ToRPC())
 	}
-	pagination := &models.Pagination{
+	pagination := &common.Pagination{
 		PageIndex:  req.PageIndex,
 		PageSize:   req.PageSize,
 		TotalCount: int32(total),

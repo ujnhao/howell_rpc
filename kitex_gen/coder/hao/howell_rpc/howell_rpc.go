@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/apache/thrift/lib/go/thrift"
 	"howell/howell_rpc/kitex_gen/base"
+	"howell/howell_rpc/kitex_gen/common"
 	"howell/howell_rpc/kitex_gen/models"
 	"strings"
 )
@@ -1420,7 +1421,7 @@ func (p *QueryCpsRebateDiscountsRequest) Field255DeepEqual(src *base.Base) bool 
 
 type QueryCpsRebateDiscountsResponse struct {
 	ItemList   []*models.CpsRebateDiscounts `thrift:"ItemList,1,optional" frugal:"1,optional,list<models.CpsRebateDiscounts>" json:"ItemList,omitempty"`
-	Pagination *models.Pagination           `thrift:"Pagination,100,required" frugal:"100,required,models.Pagination" json:"Pagination"`
+	Pagination *common.Pagination           `thrift:"Pagination,100,required" frugal:"100,required,common.Pagination" json:"Pagination"`
 	BaseResp   *base.BaseResp               `thrift:"BaseResp,255" frugal:"255,default,base.BaseResp" json:"BaseResp"`
 }
 
@@ -1441,9 +1442,9 @@ func (p *QueryCpsRebateDiscountsResponse) GetItemList() (v []*models.CpsRebateDi
 	return p.ItemList
 }
 
-var QueryCpsRebateDiscountsResponse_Pagination_DEFAULT *models.Pagination
+var QueryCpsRebateDiscountsResponse_Pagination_DEFAULT *common.Pagination
 
-func (p *QueryCpsRebateDiscountsResponse) GetPagination() (v *models.Pagination) {
+func (p *QueryCpsRebateDiscountsResponse) GetPagination() (v *common.Pagination) {
 	if !p.IsSetPagination() {
 		return QueryCpsRebateDiscountsResponse_Pagination_DEFAULT
 	}
@@ -1461,7 +1462,7 @@ func (p *QueryCpsRebateDiscountsResponse) GetBaseResp() (v *base.BaseResp) {
 func (p *QueryCpsRebateDiscountsResponse) SetItemList(val []*models.CpsRebateDiscounts) {
 	p.ItemList = val
 }
-func (p *QueryCpsRebateDiscountsResponse) SetPagination(val *models.Pagination) {
+func (p *QueryCpsRebateDiscountsResponse) SetPagination(val *common.Pagination) {
 	p.Pagination = val
 }
 func (p *QueryCpsRebateDiscountsResponse) SetBaseResp(val *base.BaseResp) {
@@ -1586,7 +1587,7 @@ func (p *QueryCpsRebateDiscountsResponse) ReadField1(iprot thrift.TProtocol) err
 	return nil
 }
 func (p *QueryCpsRebateDiscountsResponse) ReadField100(iprot thrift.TProtocol) error {
-	p.Pagination = models.NewPagination()
+	p.Pagination = common.NewPagination()
 	if err := p.Pagination.Read(iprot); err != nil {
 		return err
 	}
@@ -1736,7 +1737,7 @@ func (p *QueryCpsRebateDiscountsResponse) Field1DeepEqual(src []*models.CpsRebat
 	}
 	return true
 }
-func (p *QueryCpsRebateDiscountsResponse) Field100DeepEqual(src *models.Pagination) bool {
+func (p *QueryCpsRebateDiscountsResponse) Field100DeepEqual(src *common.Pagination) bool {
 
 	if !p.Pagination.DeepEqual(src) {
 		return false

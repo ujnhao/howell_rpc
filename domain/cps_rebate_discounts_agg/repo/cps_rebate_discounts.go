@@ -6,6 +6,7 @@ import (
 	"howell/howell_rpc/domain/cps_rebate_discounts_agg/entity"
 	"howell/howell_rpc/domain/cps_rebate_discounts_agg/filter"
 	"howell/howell_rpc/infra/db"
+	"howell/howell_rpc/kitex_gen/common"
 	"howell/howell_rpc/log"
 )
 
@@ -35,7 +36,8 @@ func (l *CpsRebateDiscountsAggImpl) GetCpsRebateDiscountsByID(ctx context.Contex
 		return res, nil
 	}
 
-	err := db.GetDB().Debug().Model(&entity.CpsRebateDiscounts{}).Where("id in (?)", ids).Find(&res).Error
+	err := db.GetDB().Debug().Model(&entity.CpsRebateDiscounts{}).
+		Where("id in (?)", ids).Where("status = ?", int32(common.Status_Valid)).Find(&res).Error
 	if err != nil {
 		_ = l.Logger.Error("sql GetCpsRebateDiscounts failed, err=%v", err)
 		return nil, err
@@ -61,7 +63,8 @@ func (l *CpsRebateDiscountsAggImpl) QueryCpsRebateDiscountsByID(ctx context.Cont
 		return res, total, err
 	}
 
-	err = tx.Offset(int(offset)).Limit(int(limit)).Find(&res).Error
+	err = tx.Where("status = ?", int32(common.Status_Valid)).
+		Offset(int(offset)).Limit(int(limit)).Find(&res).Error
 	if err != nil {
 		_ = l.Logger.Error("sql offset limit find failed, err=%v", err)
 		return res, total, err
