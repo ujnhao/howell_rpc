@@ -10,15 +10,17 @@ import (
 )
 
 const (
-	Unknow = "unknown"
+	CpsUnknow = "unknown"
 
-	MeiTuan = "meituan"
+	CpsMeiTuan = "meituan"
 
-	Unkonw = "unknown"
+	CpsDiDi = "didi"
 
-	MiniProgram = "miniProgram"
+	ActUnkonw = "unknown"
 
-	H5 = "h5"
+	ActMiniProgram = "miniProgram"
+
+	ActH5 = "h5"
 )
 
 type Status int64

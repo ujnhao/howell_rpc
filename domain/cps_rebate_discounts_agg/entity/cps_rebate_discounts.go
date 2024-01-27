@@ -80,11 +80,12 @@ func (m *CpsRebateDiscounts) Check() error {
 	if m.Resource == "" {
 		return fmt.Errorf("invalid resource")
 	}
-	if m.CpsType != common.MeiTuan {
+	if m.CpsType != common.CpsMeiTuan &&
+		m.CpsType != common.CpsDiDi {
 		return fmt.Errorf("invalid cps_type")
 	}
-	if m.ActType != common.MiniProgram &&
-		m.ActType != common.H5 {
+	if m.ActType != common.ActMiniProgram &&
+		m.ActType != common.ActH5 {
 		return fmt.Errorf("act_type")
 	}
 	if m.ActUrl == "" ||
