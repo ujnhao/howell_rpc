@@ -9,7 +9,7 @@ import (
 	service_cps_rebate_discounts "howell/howell_rpc/service/cps_rebate_discounts"
 )
 
-// CreateCpsRebateDiscounts implements the HowellRpcServiceImpl interface.
+// CreateCpsRebateDiscounts create crd
 func CreateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.CreateCpsRebateDiscountsRequest) (resp *howell_rpc.CreateCpsRebateDiscountsResponse, err error) {
 	resp = &howell_rpc.CreateCpsRebateDiscountsResponse{}
 
@@ -20,6 +20,18 @@ func CreateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.CreateCpsReba
 	}
 
 	resp.EntityId = &entityID
+	return resp, nil
+}
+
+// UpdateCpsRebateDiscounts update cps_crd
+func UpdateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.UpdateCpsRebateDiscountsRequest) (resp *howell_rpc.UpdateCpsRebateDiscountsResponse, err error) {
+	resp = &howell_rpc.UpdateCpsRebateDiscountsResponse{}
+
+	err = service_cps_rebate_discounts.Update(ctx, req)
+	if err != nil {
+		return resp, err
+	}
+
 	return resp, nil
 }
 

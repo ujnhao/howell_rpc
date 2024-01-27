@@ -14,6 +14,11 @@ func (s *HowellRpcServiceImpl) CreateCpsRebateDiscounts(ctx context.Context, req
 	return handlers.CreateCpsRebateDiscounts(ctx, req)
 }
 
+// UpdateCpsRebateDiscounts update cps_crd
+func (s *HowellRpcServiceImpl) UpdateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.UpdateCpsRebateDiscountsRequest) (resp *howell_rpc.UpdateCpsRebateDiscountsResponse, err error) {
+	return handlers.UpdateCpsRebateDiscounts(ctx, req)
+}
+
 // MGetCpsRebateDiscounts get cps rebate discounts
 func (s *HowellRpcServiceImpl) MGetCpsRebateDiscounts(ctx context.Context, req *howell_rpc.MGetCpsRebateDiscountsRequest) (resp *howell_rpc.MGetCpsRebateDiscountsResponse, err error) {
 	return handlers.MGetCpsRebateDiscounts(ctx, req)

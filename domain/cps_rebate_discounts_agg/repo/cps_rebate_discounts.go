@@ -29,6 +29,16 @@ func (l *CpsRebateDiscountsAggImpl) CreateCpsRebateDiscounts(ctx context.Context
 	return nil
 }
 
+func (l *CpsRebateDiscountsAggImpl) UpdateCpsRebateDiscountsByID(ctx context.Context, id string, entityInfo *entity.CpsRebateDiscounts) error {
+	err := db.GetDB().Debug().Model(&entity.CpsRebateDiscounts{}).
+		Where("id = ?", id).Updates(entityInfo).Error
+	if err != nil {
+		_ = l.Logger.Error("sql CreateCpsRebateDiscounts failed, err=%v", err)
+		return err
+	}
+	return nil
+}
+
 func (l *CpsRebateDiscountsAggImpl) GetCpsRebateDiscountsByID(ctx context.Context, ids []string) ([]*entity.CpsRebateDiscounts, error) {
 	res := make([]*entity.CpsRebateDiscounts, 0)
 	if len(ids) == 0 {

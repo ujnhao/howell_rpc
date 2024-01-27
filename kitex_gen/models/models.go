@@ -14,7 +14,7 @@ type CpsRebateDiscounts struct {
 	AppId    *string         `thrift:"app_id,2,optional" frugal:"2,optional,string" json:"app_id,omitempty"`
 	Name     *string         `thrift:"name,3,optional" frugal:"3,optional,string" json:"name,omitempty"`
 	CpsType  *common.CpsType `thrift:"cps_type,4,optional" frugal:"4,optional,string" json:"cps_type,omitempty"`
-	ActTpye  *common.ActType `thrift:"act_tpye,5,optional" frugal:"5,optional,string" json:"act_tpye,omitempty"`
+	ActType  *common.ActType `thrift:"act_type,5,optional" frugal:"5,optional,string" json:"act_type,omitempty"`
 	ActUrl   *string         `thrift:"act_url,6,optional" frugal:"6,optional,string" json:"act_url,omitempty"`
 	Images   *string         `thrift:"images,7,optional" frugal:"7,optional,string" json:"images,omitempty"`
 	Extra    *string         `thrift:"extra,8,optional" frugal:"8,optional,string" json:"extra,omitempty"`
@@ -66,13 +66,13 @@ func (p *CpsRebateDiscounts) GetCpsType() (v common.CpsType) {
 	return *p.CpsType
 }
 
-var CpsRebateDiscounts_ActTpye_DEFAULT common.ActType
+var CpsRebateDiscounts_ActType_DEFAULT common.ActType
 
-func (p *CpsRebateDiscounts) GetActTpye() (v common.ActType) {
-	if !p.IsSetActTpye() {
-		return CpsRebateDiscounts_ActTpye_DEFAULT
+func (p *CpsRebateDiscounts) GetActType() (v common.ActType) {
+	if !p.IsSetActType() {
+		return CpsRebateDiscounts_ActType_DEFAULT
 	}
-	return *p.ActTpye
+	return *p.ActType
 }
 
 var CpsRebateDiscounts_ActUrl_DEFAULT string
@@ -131,8 +131,8 @@ func (p *CpsRebateDiscounts) SetName(val *string) {
 func (p *CpsRebateDiscounts) SetCpsType(val *common.CpsType) {
 	p.CpsType = val
 }
-func (p *CpsRebateDiscounts) SetActTpye(val *common.ActType) {
-	p.ActTpye = val
+func (p *CpsRebateDiscounts) SetActType(val *common.ActType) {
+	p.ActType = val
 }
 func (p *CpsRebateDiscounts) SetActUrl(val *string) {
 	p.ActUrl = val
@@ -155,7 +155,7 @@ var fieldIDToName_CpsRebateDiscounts = map[int16]string{
 	2:  "app_id",
 	3:  "name",
 	4:  "cps_type",
-	5:  "act_tpye",
+	5:  "act_type",
 	6:  "act_url",
 	7:  "images",
 	8:  "extra",
@@ -179,8 +179,8 @@ func (p *CpsRebateDiscounts) IsSetCpsType() bool {
 	return p.CpsType != nil
 }
 
-func (p *CpsRebateDiscounts) IsSetActTpye() bool {
-	return p.ActTpye != nil
+func (p *CpsRebateDiscounts) IsSetActType() bool {
+	return p.ActType != nil
 }
 
 func (p *CpsRebateDiscounts) IsSetActUrl() bool {
@@ -372,7 +372,7 @@ func (p *CpsRebateDiscounts) ReadField5(iprot thrift.TProtocol) error {
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		p.ActTpye = &v
+		p.ActType = &v
 	}
 	return nil
 }
@@ -564,11 +564,11 @@ WriteFieldEndError:
 }
 
 func (p *CpsRebateDiscounts) writeField5(oprot thrift.TProtocol) (err error) {
-	if p.IsSetActTpye() {
-		if err = oprot.WriteFieldBegin("act_tpye", thrift.STRING, 5); err != nil {
+	if p.IsSetActType() {
+		if err = oprot.WriteFieldBegin("act_type", thrift.STRING, 5); err != nil {
 			goto WriteFieldBeginError
 		}
-		if err := oprot.WriteString(*p.ActTpye); err != nil {
+		if err := oprot.WriteString(*p.ActType); err != nil {
 			return err
 		}
 		if err = oprot.WriteFieldEnd(); err != nil {
@@ -703,7 +703,7 @@ func (p *CpsRebateDiscounts) DeepEqual(ano *CpsRebateDiscounts) bool {
 	if !p.Field4DeepEqual(ano.CpsType) {
 		return false
 	}
-	if !p.Field5DeepEqual(ano.ActTpye) {
+	if !p.Field5DeepEqual(ano.ActType) {
 		return false
 	}
 	if !p.Field6DeepEqual(ano.ActUrl) {
@@ -774,12 +774,12 @@ func (p *CpsRebateDiscounts) Field4DeepEqual(src *common.CpsType) bool {
 }
 func (p *CpsRebateDiscounts) Field5DeepEqual(src *common.ActType) bool {
 
-	if p.ActTpye == src {
+	if p.ActType == src {
 		return true
-	} else if p.ActTpye == nil || src == nil {
+	} else if p.ActType == nil || src == nil {
 		return false
 	}
-	if strings.Compare(*p.ActTpye, *src) != 0 {
+	if strings.Compare(*p.ActType, *src) != 0 {
 		return false
 	}
 	return true

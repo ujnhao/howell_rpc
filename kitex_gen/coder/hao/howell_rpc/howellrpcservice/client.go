@@ -12,6 +12,7 @@ import (
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	CreateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.CreateCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.CreateCpsRebateDiscountsResponse, err error)
+	UpdateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.UpdateCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.UpdateCpsRebateDiscountsResponse, err error)
 	MGetCpsRebateDiscounts(ctx context.Context, req *howell_rpc.MGetCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.MGetCpsRebateDiscountsResponse, err error)
 	QueryCpsRebateDiscounts(ctx context.Context, req *howell_rpc.QueryCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.QueryCpsRebateDiscountsResponse, err error)
 }
@@ -48,6 +49,11 @@ type kHowellRpcServiceClient struct {
 func (p *kHowellRpcServiceClient) CreateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.CreateCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.CreateCpsRebateDiscountsResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.CreateCpsRebateDiscounts(ctx, req)
+}
+
+func (p *kHowellRpcServiceClient) UpdateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.UpdateCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.UpdateCpsRebateDiscountsResponse, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateCpsRebateDiscounts(ctx, req)
 }
 
 func (p *kHowellRpcServiceClient) MGetCpsRebateDiscounts(ctx context.Context, req *howell_rpc.MGetCpsRebateDiscountsRequest, callOptions ...callopt.Option) (r *howell_rpc.MGetCpsRebateDiscountsResponse, err error) {

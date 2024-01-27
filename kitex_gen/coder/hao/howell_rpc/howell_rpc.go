@@ -495,6 +495,480 @@ func (p *CreateCpsRebateDiscountsResponse) Field255DeepEqual(src *base.BaseResp)
 	return true
 }
 
+type UpdateCpsRebateDiscountsRequest struct {
+	EntityId  string                     `thrift:"EntityId,1,required" frugal:"1,required,string" json:"EntityId"`
+	CRDEntity *models.CpsRebateDiscounts `thrift:"CRDEntity,2,required" frugal:"2,required,models.CpsRebateDiscounts" json:"CRDEntity"`
+	Base      *base.Base                 `thrift:"Base,255" frugal:"255,default,base.Base" json:"Base"`
+}
+
+func NewUpdateCpsRebateDiscountsRequest() *UpdateCpsRebateDiscountsRequest {
+	return &UpdateCpsRebateDiscountsRequest{}
+}
+
+func (p *UpdateCpsRebateDiscountsRequest) InitDefault() {
+	*p = UpdateCpsRebateDiscountsRequest{}
+}
+
+func (p *UpdateCpsRebateDiscountsRequest) GetEntityId() (v string) {
+	return p.EntityId
+}
+
+var UpdateCpsRebateDiscountsRequest_CRDEntity_DEFAULT *models.CpsRebateDiscounts
+
+func (p *UpdateCpsRebateDiscountsRequest) GetCRDEntity() (v *models.CpsRebateDiscounts) {
+	if !p.IsSetCRDEntity() {
+		return UpdateCpsRebateDiscountsRequest_CRDEntity_DEFAULT
+	}
+	return p.CRDEntity
+}
+
+var UpdateCpsRebateDiscountsRequest_Base_DEFAULT *base.Base
+
+func (p *UpdateCpsRebateDiscountsRequest) GetBase() (v *base.Base) {
+	if !p.IsSetBase() {
+		return UpdateCpsRebateDiscountsRequest_Base_DEFAULT
+	}
+	return p.Base
+}
+func (p *UpdateCpsRebateDiscountsRequest) SetEntityId(val string) {
+	p.EntityId = val
+}
+func (p *UpdateCpsRebateDiscountsRequest) SetCRDEntity(val *models.CpsRebateDiscounts) {
+	p.CRDEntity = val
+}
+func (p *UpdateCpsRebateDiscountsRequest) SetBase(val *base.Base) {
+	p.Base = val
+}
+
+var fieldIDToName_UpdateCpsRebateDiscountsRequest = map[int16]string{
+	1:   "EntityId",
+	2:   "CRDEntity",
+	255: "Base",
+}
+
+func (p *UpdateCpsRebateDiscountsRequest) IsSetCRDEntity() bool {
+	return p.CRDEntity != nil
+}
+
+func (p *UpdateCpsRebateDiscountsRequest) IsSetBase() bool {
+	return p.Base != nil
+}
+
+func (p *UpdateCpsRebateDiscountsRequest) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+	var issetEntityId bool = false
+	var issetCRDEntity bool = false
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetEntityId = true
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+				issetCRDEntity = true
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 255:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField255(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	if !issetEntityId {
+		fieldId = 1
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetCRDEntity {
+		fieldId = 2
+		goto RequiredFieldNotSetError
+	}
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UpdateCpsRebateDiscountsRequest[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+RequiredFieldNotSetError:
+	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_UpdateCpsRebateDiscountsRequest[fieldId]))
+}
+
+func (p *UpdateCpsRebateDiscountsRequest) ReadField1(iprot thrift.TProtocol) error {
+
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		p.EntityId = v
+	}
+	return nil
+}
+func (p *UpdateCpsRebateDiscountsRequest) ReadField2(iprot thrift.TProtocol) error {
+	p.CRDEntity = models.NewCpsRebateDiscounts()
+	if err := p.CRDEntity.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+func (p *UpdateCpsRebateDiscountsRequest) ReadField255(iprot thrift.TProtocol) error {
+	p.Base = base.NewBase()
+	if err := p.Base.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *UpdateCpsRebateDiscountsRequest) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("UpdateCpsRebateDiscountsRequest"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField255(oprot); err != nil {
+			fieldId = 255
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *UpdateCpsRebateDiscountsRequest) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("EntityId", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.EntityId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *UpdateCpsRebateDiscountsRequest) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("CRDEntity", thrift.STRUCT, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.CRDEntity.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *UpdateCpsRebateDiscountsRequest) writeField255(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("Base", thrift.STRUCT, 255); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Base.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 255 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 255 end error: ", p), err)
+}
+
+func (p *UpdateCpsRebateDiscountsRequest) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UpdateCpsRebateDiscountsRequest(%+v)", *p)
+
+}
+
+func (p *UpdateCpsRebateDiscountsRequest) DeepEqual(ano *UpdateCpsRebateDiscountsRequest) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.EntityId) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.CRDEntity) {
+		return false
+	}
+	if !p.Field255DeepEqual(ano.Base) {
+		return false
+	}
+	return true
+}
+
+func (p *UpdateCpsRebateDiscountsRequest) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.EntityId, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *UpdateCpsRebateDiscountsRequest) Field2DeepEqual(src *models.CpsRebateDiscounts) bool {
+
+	if !p.CRDEntity.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+func (p *UpdateCpsRebateDiscountsRequest) Field255DeepEqual(src *base.Base) bool {
+
+	if !p.Base.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type UpdateCpsRebateDiscountsResponse struct {
+	BaseResp *base.BaseResp `thrift:"BaseResp,255" frugal:"255,default,base.BaseResp" json:"BaseResp"`
+}
+
+func NewUpdateCpsRebateDiscountsResponse() *UpdateCpsRebateDiscountsResponse {
+	return &UpdateCpsRebateDiscountsResponse{}
+}
+
+func (p *UpdateCpsRebateDiscountsResponse) InitDefault() {
+	*p = UpdateCpsRebateDiscountsResponse{}
+}
+
+var UpdateCpsRebateDiscountsResponse_BaseResp_DEFAULT *base.BaseResp
+
+func (p *UpdateCpsRebateDiscountsResponse) GetBaseResp() (v *base.BaseResp) {
+	if !p.IsSetBaseResp() {
+		return UpdateCpsRebateDiscountsResponse_BaseResp_DEFAULT
+	}
+	return p.BaseResp
+}
+func (p *UpdateCpsRebateDiscountsResponse) SetBaseResp(val *base.BaseResp) {
+	p.BaseResp = val
+}
+
+var fieldIDToName_UpdateCpsRebateDiscountsResponse = map[int16]string{
+	255: "BaseResp",
+}
+
+func (p *UpdateCpsRebateDiscountsResponse) IsSetBaseResp() bool {
+	return p.BaseResp != nil
+}
+
+func (p *UpdateCpsRebateDiscountsResponse) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 255:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField255(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UpdateCpsRebateDiscountsResponse[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *UpdateCpsRebateDiscountsResponse) ReadField255(iprot thrift.TProtocol) error {
+	p.BaseResp = base.NewBaseResp()
+	if err := p.BaseResp.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *UpdateCpsRebateDiscountsResponse) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("UpdateCpsRebateDiscountsResponse"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField255(oprot); err != nil {
+			fieldId = 255
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *UpdateCpsRebateDiscountsResponse) writeField255(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("BaseResp", thrift.STRUCT, 255); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.BaseResp.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 255 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 255 end error: ", p), err)
+}
+
+func (p *UpdateCpsRebateDiscountsResponse) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UpdateCpsRebateDiscountsResponse(%+v)", *p)
+
+}
+
+func (p *UpdateCpsRebateDiscountsResponse) DeepEqual(ano *UpdateCpsRebateDiscountsResponse) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field255DeepEqual(ano.BaseResp) {
+		return false
+	}
+	return true
+}
+
+func (p *UpdateCpsRebateDiscountsResponse) Field255DeepEqual(src *base.BaseResp) bool {
+
+	if !p.BaseResp.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
 type MGetCpsRebateDiscountsRequest struct {
 	EntityIdList []string   `thrift:"EntityIdList,1,required" frugal:"1,required,list<string>" json:"EntityIdList"`
 	Base         *base.Base `thrift:"Base,255" frugal:"255,default,base.Base" json:"Base"`
@@ -1027,10 +1501,13 @@ func (p *MGetCpsRebateDiscountsResponse) Field255DeepEqual(src *base.BaseResp) b
 }
 
 type QueryCpsRebateDiscountsRequest struct {
-	EntityIdList []string   `thrift:"EntityIdList,1,optional" frugal:"1,optional,list<string>" json:"EntityIdList,omitempty"`
-	PageIndex    int32      `thrift:"PageIndex,99,required" frugal:"99,required,i32" json:"PageIndex"`
-	PageSize     int32      `thrift:"PageSize,100,required" frugal:"100,required,i32" json:"PageSize"`
-	Base         *base.Base `thrift:"Base,255" frugal:"255,default,base.Base" json:"Base"`
+	EntityIdList []string         `thrift:"EntityIdList,1,optional" frugal:"1,optional,list<string>" json:"EntityIdList,omitempty"`
+	ResourceList []string         `thrift:"ResourceList,2,optional" frugal:"2,optional,list<string>" json:"ResourceList,omitempty"`
+	ActTypeList  []common.ActType `thrift:"ActTypeList,3,optional" frugal:"3,optional,list<string>" json:"ActTypeList,omitempty"`
+	CpsTypeList  []common.CpsType `thrift:"CpsTypeList,4,optional" frugal:"4,optional,list<string>" json:"CpsTypeList,omitempty"`
+	PageIndex    int32            `thrift:"PageIndex,99,required" frugal:"99,required,i32" json:"PageIndex"`
+	PageSize     int32            `thrift:"PageSize,100,required" frugal:"100,required,i32" json:"PageSize"`
+	Base         *base.Base       `thrift:"Base,255" frugal:"255,default,base.Base" json:"Base"`
 }
 
 func NewQueryCpsRebateDiscountsRequest() *QueryCpsRebateDiscountsRequest {
@@ -1048,6 +1525,33 @@ func (p *QueryCpsRebateDiscountsRequest) GetEntityIdList() (v []string) {
 		return QueryCpsRebateDiscountsRequest_EntityIdList_DEFAULT
 	}
 	return p.EntityIdList
+}
+
+var QueryCpsRebateDiscountsRequest_ResourceList_DEFAULT []string
+
+func (p *QueryCpsRebateDiscountsRequest) GetResourceList() (v []string) {
+	if !p.IsSetResourceList() {
+		return QueryCpsRebateDiscountsRequest_ResourceList_DEFAULT
+	}
+	return p.ResourceList
+}
+
+var QueryCpsRebateDiscountsRequest_ActTypeList_DEFAULT []common.ActType
+
+func (p *QueryCpsRebateDiscountsRequest) GetActTypeList() (v []common.ActType) {
+	if !p.IsSetActTypeList() {
+		return QueryCpsRebateDiscountsRequest_ActTypeList_DEFAULT
+	}
+	return p.ActTypeList
+}
+
+var QueryCpsRebateDiscountsRequest_CpsTypeList_DEFAULT []common.CpsType
+
+func (p *QueryCpsRebateDiscountsRequest) GetCpsTypeList() (v []common.CpsType) {
+	if !p.IsSetCpsTypeList() {
+		return QueryCpsRebateDiscountsRequest_CpsTypeList_DEFAULT
+	}
+	return p.CpsTypeList
 }
 
 func (p *QueryCpsRebateDiscountsRequest) GetPageIndex() (v int32) {
@@ -1069,6 +1573,15 @@ func (p *QueryCpsRebateDiscountsRequest) GetBase() (v *base.Base) {
 func (p *QueryCpsRebateDiscountsRequest) SetEntityIdList(val []string) {
 	p.EntityIdList = val
 }
+func (p *QueryCpsRebateDiscountsRequest) SetResourceList(val []string) {
+	p.ResourceList = val
+}
+func (p *QueryCpsRebateDiscountsRequest) SetActTypeList(val []common.ActType) {
+	p.ActTypeList = val
+}
+func (p *QueryCpsRebateDiscountsRequest) SetCpsTypeList(val []common.CpsType) {
+	p.CpsTypeList = val
+}
 func (p *QueryCpsRebateDiscountsRequest) SetPageIndex(val int32) {
 	p.PageIndex = val
 }
@@ -1081,6 +1594,9 @@ func (p *QueryCpsRebateDiscountsRequest) SetBase(val *base.Base) {
 
 var fieldIDToName_QueryCpsRebateDiscountsRequest = map[int16]string{
 	1:   "EntityIdList",
+	2:   "ResourceList",
+	3:   "ActTypeList",
+	4:   "CpsTypeList",
 	99:  "PageIndex",
 	100: "PageSize",
 	255: "Base",
@@ -1088,6 +1604,18 @@ var fieldIDToName_QueryCpsRebateDiscountsRequest = map[int16]string{
 
 func (p *QueryCpsRebateDiscountsRequest) IsSetEntityIdList() bool {
 	return p.EntityIdList != nil
+}
+
+func (p *QueryCpsRebateDiscountsRequest) IsSetResourceList() bool {
+	return p.ResourceList != nil
+}
+
+func (p *QueryCpsRebateDiscountsRequest) IsSetActTypeList() bool {
+	return p.ActTypeList != nil
+}
+
+func (p *QueryCpsRebateDiscountsRequest) IsSetCpsTypeList() bool {
+	return p.CpsTypeList != nil
 }
 
 func (p *QueryCpsRebateDiscountsRequest) IsSetBase() bool {
@@ -1118,6 +1646,30 @@ func (p *QueryCpsRebateDiscountsRequest) Read(iprot thrift.TProtocol) (err error
 		case 1:
 			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -1211,6 +1763,72 @@ func (p *QueryCpsRebateDiscountsRequest) ReadField1(iprot thrift.TProtocol) erro
 	}
 	return nil
 }
+func (p *QueryCpsRebateDiscountsRequest) ReadField2(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	p.ResourceList = make([]string, 0, size)
+	for i := 0; i < size; i++ {
+
+		var _elem string
+		if v, err := iprot.ReadString(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		p.ResourceList = append(p.ResourceList, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	return nil
+}
+func (p *QueryCpsRebateDiscountsRequest) ReadField3(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	p.ActTypeList = make([]common.ActType, 0, size)
+	for i := 0; i < size; i++ {
+
+		var _elem common.ActType
+		if v, err := iprot.ReadString(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		p.ActTypeList = append(p.ActTypeList, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	return nil
+}
+func (p *QueryCpsRebateDiscountsRequest) ReadField4(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	p.CpsTypeList = make([]common.CpsType, 0, size)
+	for i := 0; i < size; i++ {
+
+		var _elem common.CpsType
+		if v, err := iprot.ReadString(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		p.CpsTypeList = append(p.CpsTypeList, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	return nil
+}
 func (p *QueryCpsRebateDiscountsRequest) ReadField99(iprot thrift.TProtocol) error {
 
 	if v, err := iprot.ReadI32(); err != nil {
@@ -1245,6 +1863,18 @@ func (p *QueryCpsRebateDiscountsRequest) Write(oprot thrift.TProtocol) (err erro
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
 			goto WriteFieldError
 		}
 		if err = p.writeField99(oprot); err != nil {
@@ -1302,6 +1932,87 @@ WriteFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *QueryCpsRebateDiscountsRequest) writeField2(oprot thrift.TProtocol) (err error) {
+	if p.IsSetResourceList() {
+		if err = oprot.WriteFieldBegin("ResourceList", thrift.LIST, 2); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := oprot.WriteListBegin(thrift.STRING, len(p.ResourceList)); err != nil {
+			return err
+		}
+		for _, v := range p.ResourceList {
+			if err := oprot.WriteString(v); err != nil {
+				return err
+			}
+		}
+		if err := oprot.WriteListEnd(); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *QueryCpsRebateDiscountsRequest) writeField3(oprot thrift.TProtocol) (err error) {
+	if p.IsSetActTypeList() {
+		if err = oprot.WriteFieldBegin("ActTypeList", thrift.LIST, 3); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := oprot.WriteListBegin(thrift.STRING, len(p.ActTypeList)); err != nil {
+			return err
+		}
+		for _, v := range p.ActTypeList {
+			if err := oprot.WriteString(v); err != nil {
+				return err
+			}
+		}
+		if err := oprot.WriteListEnd(); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *QueryCpsRebateDiscountsRequest) writeField4(oprot thrift.TProtocol) (err error) {
+	if p.IsSetCpsTypeList() {
+		if err = oprot.WriteFieldBegin("CpsTypeList", thrift.LIST, 4); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := oprot.WriteListBegin(thrift.STRING, len(p.CpsTypeList)); err != nil {
+			return err
+		}
+		for _, v := range p.CpsTypeList {
+			if err := oprot.WriteString(v); err != nil {
+				return err
+			}
+		}
+		if err := oprot.WriteListEnd(); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
 }
 
 func (p *QueryCpsRebateDiscountsRequest) writeField99(oprot thrift.TProtocol) (err error) {
@@ -1372,6 +2083,15 @@ func (p *QueryCpsRebateDiscountsRequest) DeepEqual(ano *QueryCpsRebateDiscountsR
 	if !p.Field1DeepEqual(ano.EntityIdList) {
 		return false
 	}
+	if !p.Field2DeepEqual(ano.ResourceList) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.ActTypeList) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.CpsTypeList) {
+		return false
+	}
 	if !p.Field99DeepEqual(ano.PageIndex) {
 		return false
 	}
@@ -1390,6 +2110,45 @@ func (p *QueryCpsRebateDiscountsRequest) Field1DeepEqual(src []string) bool {
 		return false
 	}
 	for i, v := range p.EntityIdList {
+		_src := src[i]
+		if strings.Compare(v, _src) != 0 {
+			return false
+		}
+	}
+	return true
+}
+func (p *QueryCpsRebateDiscountsRequest) Field2DeepEqual(src []string) bool {
+
+	if len(p.ResourceList) != len(src) {
+		return false
+	}
+	for i, v := range p.ResourceList {
+		_src := src[i]
+		if strings.Compare(v, _src) != 0 {
+			return false
+		}
+	}
+	return true
+}
+func (p *QueryCpsRebateDiscountsRequest) Field3DeepEqual(src []common.ActType) bool {
+
+	if len(p.ActTypeList) != len(src) {
+		return false
+	}
+	for i, v := range p.ActTypeList {
+		_src := src[i]
+		if strings.Compare(v, _src) != 0 {
+			return false
+		}
+	}
+	return true
+}
+func (p *QueryCpsRebateDiscountsRequest) Field4DeepEqual(src []common.CpsType) bool {
+
+	if len(p.CpsTypeList) != len(src) {
+		return false
+	}
+	for i, v := range p.CpsTypeList {
 		_src := src[i]
 		if strings.Compare(v, _src) != 0 {
 			return false
@@ -1755,6 +2514,8 @@ func (p *QueryCpsRebateDiscountsResponse) Field255DeepEqual(src *base.BaseResp) 
 type HowellRpcService interface {
 	CreateCpsRebateDiscounts(ctx context.Context, req *CreateCpsRebateDiscountsRequest) (r *CreateCpsRebateDiscountsResponse, err error)
 
+	UpdateCpsRebateDiscounts(ctx context.Context, req *UpdateCpsRebateDiscountsRequest) (r *UpdateCpsRebateDiscountsResponse, err error)
+
 	MGetCpsRebateDiscounts(ctx context.Context, req *MGetCpsRebateDiscountsRequest) (r *MGetCpsRebateDiscountsResponse, err error)
 
 	QueryCpsRebateDiscounts(ctx context.Context, req *QueryCpsRebateDiscountsRequest) (r *QueryCpsRebateDiscountsResponse, err error)
@@ -1791,6 +2552,15 @@ func (p *HowellRpcServiceClient) CreateCpsRebateDiscounts(ctx context.Context, r
 	_args.Req = req
 	var _result HowellRpcServiceCreateCpsRebateDiscountsResult
 	if err = p.Client_().Call(ctx, "CreateCpsRebateDiscounts", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+func (p *HowellRpcServiceClient) UpdateCpsRebateDiscounts(ctx context.Context, req *UpdateCpsRebateDiscountsRequest) (r *UpdateCpsRebateDiscountsResponse, err error) {
+	var _args HowellRpcServiceUpdateCpsRebateDiscountsArgs
+	_args.Req = req
+	var _result HowellRpcServiceUpdateCpsRebateDiscountsResult
+	if err = p.Client_().Call(ctx, "UpdateCpsRebateDiscounts", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -1835,6 +2605,7 @@ func (p *HowellRpcServiceProcessor) ProcessorMap() map[string]thrift.TProcessorF
 func NewHowellRpcServiceProcessor(handler HowellRpcService) *HowellRpcServiceProcessor {
 	self := &HowellRpcServiceProcessor{handler: handler, processorMap: make(map[string]thrift.TProcessorFunction)}
 	self.AddToProcessorMap("CreateCpsRebateDiscounts", &howellRpcServiceProcessorCreateCpsRebateDiscounts{handler: handler})
+	self.AddToProcessorMap("UpdateCpsRebateDiscounts", &howellRpcServiceProcessorUpdateCpsRebateDiscounts{handler: handler})
 	self.AddToProcessorMap("MGetCpsRebateDiscounts", &howellRpcServiceProcessorMGetCpsRebateDiscounts{handler: handler})
 	self.AddToProcessorMap("QueryCpsRebateDiscounts", &howellRpcServiceProcessorQueryCpsRebateDiscounts{handler: handler})
 	return self
@@ -1888,6 +2659,54 @@ func (p *howellRpcServiceProcessorCreateCpsRebateDiscounts) Process(ctx context.
 		result.Success = retval
 	}
 	if err2 = oprot.WriteMessageBegin("CreateCpsRebateDiscounts", thrift.REPLY, seqId); err2 != nil {
+		err = err2
+	}
+	if err2 = result.Write(oprot); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.WriteMessageEnd(); err == nil && err2 != nil {
+		err = err2
+	}
+	if err2 = oprot.Flush(ctx); err == nil && err2 != nil {
+		err = err2
+	}
+	if err != nil {
+		return
+	}
+	return true, err
+}
+
+type howellRpcServiceProcessorUpdateCpsRebateDiscounts struct {
+	handler HowellRpcService
+}
+
+func (p *howellRpcServiceProcessorUpdateCpsRebateDiscounts) Process(ctx context.Context, seqId int32, iprot, oprot thrift.TProtocol) (success bool, err thrift.TException) {
+	args := HowellRpcServiceUpdateCpsRebateDiscountsArgs{}
+	if err = args.Read(iprot); err != nil {
+		iprot.ReadMessageEnd()
+		x := thrift.NewTApplicationException(thrift.PROTOCOL_ERROR, err.Error())
+		oprot.WriteMessageBegin("UpdateCpsRebateDiscounts", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return false, err
+	}
+
+	iprot.ReadMessageEnd()
+	var err2 error
+	result := HowellRpcServiceUpdateCpsRebateDiscountsResult{}
+	var retval *UpdateCpsRebateDiscountsResponse
+	if retval, err2 = p.handler.UpdateCpsRebateDiscounts(ctx, args.Req); err2 != nil {
+		x := thrift.NewTApplicationException(thrift.INTERNAL_ERROR, "Internal error processing UpdateCpsRebateDiscounts: "+err2.Error())
+		oprot.WriteMessageBegin("UpdateCpsRebateDiscounts", thrift.EXCEPTION, seqId)
+		x.Write(oprot)
+		oprot.WriteMessageEnd()
+		oprot.Flush(ctx)
+		return true, err2
+	} else {
+		result.Success = retval
+	}
+	if err2 = oprot.WriteMessageBegin("UpdateCpsRebateDiscounts", thrift.REPLY, seqId); err2 != nil {
 		err = err2
 	}
 	if err2 = result.Write(oprot); err == nil && err2 != nil {
@@ -2334,6 +3153,346 @@ func (p *HowellRpcServiceCreateCpsRebateDiscountsResult) DeepEqual(ano *HowellRp
 }
 
 func (p *HowellRpcServiceCreateCpsRebateDiscountsResult) Field0DeepEqual(src *CreateCpsRebateDiscountsResponse) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type HowellRpcServiceUpdateCpsRebateDiscountsArgs struct {
+	Req *UpdateCpsRebateDiscountsRequest `thrift:"req,1" frugal:"1,default,UpdateCpsRebateDiscountsRequest" json:"req"`
+}
+
+func NewHowellRpcServiceUpdateCpsRebateDiscountsArgs() *HowellRpcServiceUpdateCpsRebateDiscountsArgs {
+	return &HowellRpcServiceUpdateCpsRebateDiscountsArgs{}
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsArgs) InitDefault() {
+	*p = HowellRpcServiceUpdateCpsRebateDiscountsArgs{}
+}
+
+var HowellRpcServiceUpdateCpsRebateDiscountsArgs_Req_DEFAULT *UpdateCpsRebateDiscountsRequest
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsArgs) GetReq() (v *UpdateCpsRebateDiscountsRequest) {
+	if !p.IsSetReq() {
+		return HowellRpcServiceUpdateCpsRebateDiscountsArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsArgs) SetReq(val *UpdateCpsRebateDiscountsRequest) {
+	p.Req = val
+}
+
+var fieldIDToName_HowellRpcServiceUpdateCpsRebateDiscountsArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_HowellRpcServiceUpdateCpsRebateDiscountsArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsArgs) ReadField1(iprot thrift.TProtocol) error {
+	p.Req = NewUpdateCpsRebateDiscountsRequest()
+	if err := p.Req.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("UpdateCpsRebateDiscounts_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("HowellRpcServiceUpdateCpsRebateDiscountsArgs(%+v)", *p)
+
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsArgs) DeepEqual(ano *HowellRpcServiceUpdateCpsRebateDiscountsArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsArgs) Field1DeepEqual(src *UpdateCpsRebateDiscountsRequest) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type HowellRpcServiceUpdateCpsRebateDiscountsResult struct {
+	Success *UpdateCpsRebateDiscountsResponse `thrift:"success,0,optional" frugal:"0,optional,UpdateCpsRebateDiscountsResponse" json:"success,omitempty"`
+}
+
+func NewHowellRpcServiceUpdateCpsRebateDiscountsResult() *HowellRpcServiceUpdateCpsRebateDiscountsResult {
+	return &HowellRpcServiceUpdateCpsRebateDiscountsResult{}
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsResult) InitDefault() {
+	*p = HowellRpcServiceUpdateCpsRebateDiscountsResult{}
+}
+
+var HowellRpcServiceUpdateCpsRebateDiscountsResult_Success_DEFAULT *UpdateCpsRebateDiscountsResponse
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsResult) GetSuccess() (v *UpdateCpsRebateDiscountsResponse) {
+	if !p.IsSetSuccess() {
+		return HowellRpcServiceUpdateCpsRebateDiscountsResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsResult) SetSuccess(x interface{}) {
+	p.Success = x.(*UpdateCpsRebateDiscountsResponse)
+}
+
+var fieldIDToName_HowellRpcServiceUpdateCpsRebateDiscountsResult = map[int16]string{
+	0: "success",
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_HowellRpcServiceUpdateCpsRebateDiscountsResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsResult) ReadField0(iprot thrift.TProtocol) error {
+	p.Success = NewUpdateCpsRebateDiscountsResponse()
+	if err := p.Success.Read(iprot); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("UpdateCpsRebateDiscounts_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("HowellRpcServiceUpdateCpsRebateDiscountsResult(%+v)", *p)
+
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsResult) DeepEqual(ano *HowellRpcServiceUpdateCpsRebateDiscountsResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *HowellRpcServiceUpdateCpsRebateDiscountsResult) Field0DeepEqual(src *UpdateCpsRebateDiscountsResponse) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

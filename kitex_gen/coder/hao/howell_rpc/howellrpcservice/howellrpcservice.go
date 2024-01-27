@@ -20,6 +20,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	handlerType := (*howell_rpc.HowellRpcService)(nil)
 	methods := map[string]kitex.MethodInfo{
 		"CreateCpsRebateDiscounts": kitex.NewMethodInfo(createCpsRebateDiscountsHandler, newHowellRpcServiceCreateCpsRebateDiscountsArgs, newHowellRpcServiceCreateCpsRebateDiscountsResult, false),
+		"UpdateCpsRebateDiscounts": kitex.NewMethodInfo(updateCpsRebateDiscountsHandler, newHowellRpcServiceUpdateCpsRebateDiscountsArgs, newHowellRpcServiceUpdateCpsRebateDiscountsResult, false),
 		"MGetCpsRebateDiscounts":   kitex.NewMethodInfo(mGetCpsRebateDiscountsHandler, newHowellRpcServiceMGetCpsRebateDiscountsArgs, newHowellRpcServiceMGetCpsRebateDiscountsResult, false),
 		"QueryCpsRebateDiscounts":  kitex.NewMethodInfo(queryCpsRebateDiscountsHandler, newHowellRpcServiceQueryCpsRebateDiscountsArgs, newHowellRpcServiceQueryCpsRebateDiscountsResult, false),
 	}
@@ -54,6 +55,24 @@ func newHowellRpcServiceCreateCpsRebateDiscountsArgs() interface{} {
 
 func newHowellRpcServiceCreateCpsRebateDiscountsResult() interface{} {
 	return howell_rpc.NewHowellRpcServiceCreateCpsRebateDiscountsResult()
+}
+
+func updateCpsRebateDiscountsHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*howell_rpc.HowellRpcServiceUpdateCpsRebateDiscountsArgs)
+	realResult := result.(*howell_rpc.HowellRpcServiceUpdateCpsRebateDiscountsResult)
+	success, err := handler.(howell_rpc.HowellRpcService).UpdateCpsRebateDiscounts(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newHowellRpcServiceUpdateCpsRebateDiscountsArgs() interface{} {
+	return howell_rpc.NewHowellRpcServiceUpdateCpsRebateDiscountsArgs()
+}
+
+func newHowellRpcServiceUpdateCpsRebateDiscountsResult() interface{} {
+	return howell_rpc.NewHowellRpcServiceUpdateCpsRebateDiscountsResult()
 }
 
 func mGetCpsRebateDiscountsHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -107,6 +126,16 @@ func (p *kClient) CreateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.
 	_args.Req = req
 	var _result howell_rpc.HowellRpcServiceCreateCpsRebateDiscountsResult
 	if err = p.c.Call(ctx, "CreateCpsRebateDiscounts", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.UpdateCpsRebateDiscountsRequest) (r *howell_rpc.UpdateCpsRebateDiscountsResponse, err error) {
+	var _args howell_rpc.HowellRpcServiceUpdateCpsRebateDiscountsArgs
+	_args.Req = req
+	var _result howell_rpc.HowellRpcServiceUpdateCpsRebateDiscountsResult
+	if err = p.c.Call(ctx, "UpdateCpsRebateDiscounts", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

@@ -52,5 +52,8 @@ func QueryCpsRebateDiscounts(ctx context.Context, req *howell_rpc.QueryCpsRebate
 func buildQueryFilter(ctx context.Context, req *howell_rpc.QueryCpsRebateDiscountsRequest) *filter.QueryCRTFilter {
 	queryFilter := filter.NewQueryCRTFilter()
 	queryFilter.SetIDList(req.GetEntityIdList())
+	queryFilter.SetCpsTypeList(req.GetCpsTypeList())
+	queryFilter.SetActTypeList(req.GetActTypeList())
+	queryFilter.SetResourceList(req.GetResourceList())
 	return queryFilter
 }

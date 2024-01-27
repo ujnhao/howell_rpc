@@ -282,7 +282,7 @@ func (p *CpsRebateDiscounts) FastReadField5(buf []byte) (int, error) {
 		return offset, err
 	} else {
 		offset += l
-		p.ActTpye = &v
+		p.ActType = &v
 
 	}
 	return offset, nil
@@ -446,9 +446,9 @@ func (p *CpsRebateDiscounts) fastWriteField4(buf []byte, binaryWriter bthrift.Bi
 
 func (p *CpsRebateDiscounts) fastWriteField5(buf []byte, binaryWriter bthrift.BinaryWriter) int {
 	offset := 0
-	if p.IsSetActTpye() {
-		offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "act_tpye", thrift.STRING, 5)
-		offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, *p.ActTpye)
+	if p.IsSetActType() {
+		offset += bthrift.Binary.WriteFieldBegin(buf[offset:], "act_type", thrift.STRING, 5)
+		offset += bthrift.Binary.WriteStringNocopy(buf[offset:], binaryWriter, *p.ActType)
 
 		offset += bthrift.Binary.WriteFieldEnd(buf[offset:])
 	}
@@ -556,9 +556,9 @@ func (p *CpsRebateDiscounts) field4Length() int {
 
 func (p *CpsRebateDiscounts) field5Length() int {
 	l := 0
-	if p.IsSetActTpye() {
-		l += bthrift.Binary.FieldBeginLength("act_tpye", thrift.STRING, 5)
-		l += bthrift.Binary.StringLengthNocopy(*p.ActTpye)
+	if p.IsSetActType() {
+		l += bthrift.Binary.FieldBeginLength("act_type", thrift.STRING, 5)
+		l += bthrift.Binary.StringLengthNocopy(*p.ActType)
 
 		l += bthrift.Binary.FieldEndLength()
 	}

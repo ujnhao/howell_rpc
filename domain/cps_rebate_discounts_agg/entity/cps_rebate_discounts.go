@@ -28,20 +28,34 @@ func NewCpsRebateDiscounts() *CpsRebateDiscounts {
 }
 
 func (m *CpsRebateDiscounts) FromRPC(r *models.CpsRebateDiscounts) *CpsRebateDiscounts {
-	return &CpsRebateDiscounts{
-		ID:        r.GetId(),
-		AppID:     r.GetAppId(),
-		Name:      r.GetName(),
-		CpsType:   r.GetCpsType(),
-		ActType:   r.GetActTpye(),
-		ActUrl:    r.GetActUrl(),
-		Images:    r.GetImages(),
-		Resource:  r.GetResource(),
-		Status:    int32(r.GetStatus()),
-		Extra:     r.GetExtra(),
-		CreatedAt: time.Time{},
-		UpdatedAt: time.Time{},
+	res := &CpsRebateDiscounts{
+		ID: r.GetId(),
 	}
+	if r.AppId != nil {
+		res.AppID = r.GetAppId()
+	}
+	if r.Name != nil {
+		res.Name = r.GetName()
+	}
+	if r.CpsType != nil {
+		res.CpsType = r.GetCpsType()
+	}
+	if r.ActType != nil {
+		res.ActType = r.GetActType()
+	}
+	if r.ActUrl != nil {
+		res.ActUrl = r.GetActUrl()
+	}
+	if r.Images != nil {
+		res.Images = r.GetImages()
+	}
+	if r.Resource != nil {
+		res.Resource = r.GetResource()
+	}
+	if r.Extra != nil {
+		res.Extra = r.GetExtra()
+	}
+	return res
 }
 
 func (m *CpsRebateDiscounts) ToRPC() *models.CpsRebateDiscounts {
@@ -50,7 +64,7 @@ func (m *CpsRebateDiscounts) ToRPC() *models.CpsRebateDiscounts {
 		AppId:    &m.AppID,
 		Name:     &m.Name,
 		CpsType:  (*common.CpsType)(&m.CpsType),
-		ActTpye:  (*common.ActType)(&m.ActType),
+		ActType:  (*common.ActType)(&m.ActType),
 		ActUrl:   &m.ActUrl,
 		Images:   &m.Images,
 		Resource: &m.Resource,

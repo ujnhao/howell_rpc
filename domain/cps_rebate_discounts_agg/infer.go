@@ -11,6 +11,7 @@ type ICpsRebateDiscountsAgg interface {
 	CreateCpsRebateDiscounts(ctx context.Context, entity *entity.CpsRebateDiscounts) error
 	GetCpsRebateDiscountsByID(ctx context.Context, ids []string) ([]*entity.CpsRebateDiscounts, error)
 	QueryCpsRebateDiscountsByID(ctx context.Context, queryFilter *filter.QueryCRTFilter, offset, limit int32) (res []*entity.CpsRebateDiscounts, total int64, err error)
+	UpdateCpsRebateDiscountsByID(ctx context.Context, id string, entityInfo *entity.CpsRebateDiscounts) error
 }
 
 func CpsRebateDiscountsAgg() ICpsRebateDiscountsAgg {
